@@ -1,0 +1,3 @@
+<?php
+$s_plugin_HhTimePackage_title = 'Time Manager';
+$s_plugin_HhTimePackage_description = 'Custom Time Manager';
