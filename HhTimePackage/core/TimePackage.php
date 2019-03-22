@@ -57,8 +57,8 @@ class TimePackage
         $t_db_query = "SELECT * 
                        FROM " . plugin_table('timepackage_details') . " d
                        LEFT JOIN " . db_get_table('bugnote') . " n ON d.bugnote_id = n.id
-                       LEFT JOIN ".db_get_table('bug_text')." t ON d.bug_id = t.id
-                       WHERE project_id=" . db_param().'
+                       LEFT JOIN ".db_get_table('bug')." t ON d.bug_id = t.id
+                       WHERE d.project_id=" . db_param().'
                        ORDER BY n.date_submitted';
         $t_query = db_query($t_db_query, array($this->_project_id));
         $results = array();

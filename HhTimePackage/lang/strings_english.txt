@@ -1,3 +1,15 @@
 <?php
+#General
 $s_plugin_HhTimePackage_title = 'Time Manager';
 $s_plugin_HhTimePackage_description = 'Custom Time Manager';
+$s_plugin_HhTimePackage_menu_description = 'Out of time';
+#timepackage page
+$s_plugin_HhTimePackage_timepackage_page_title = 'Mon available time';
+$s_plugin_HhTimePackage_timepackage_page_count = 'Your time actualy remaining';
+$s_plugin_HhTimePackage_timepackage_page_detail_title = 'Time details';
+$s_plugin_HhTimePackage_timepackage_page_date = 'Date';
+$s_plugin_HhTimePackage_timepackage_page_time = 'Time';
+$s_plugin_HhTimePackage_timepackage_page_description = 'description';
+$s_plugin_HhTimePackage_timepackage_page_bug = 'Bug';
+$s_plugin_HhTimePackage_timepackage_page_show_bug = 'Show details';
+$s_plugin_HhTimePackage_timepackage_page_out_of_time = 'You'\re out of time, please contact us to get a new time package.';

@@ -61,8 +61,8 @@ if ( $time < 0 ) {
                                 <?php if ( $detail['comment'] != '' ) :?>
                                     <?php echo $detail['comment']; ?>
                                 <?php else:?>
-                                    <?php if ( $detail['description'] != ''): ?>
-                                        <?php echo 'BUG : '.$detail['description']; ?>
+                                    <?php if ( $detail['summary'] != ''): ?>
+                                        <?php echo plugin_lang_get('timepackage_page_bug').' '.$detail['bug_id'].' : '.$detail['summary']; ?>
                                     <?php endif;?>
                                 <?php endif;?>
                             </td>

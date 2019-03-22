@@ -10,5 +10,6 @@ $s_plugin_HhTimePackage_timepackage_page_detail_title = 'Détails des temps cons
 $s_plugin_HhTimePackage_timepackage_page_date = 'Date';
 $s_plugin_HhTimePackage_timepackage_page_time = 'Temps';
 $s_plugin_HhTimePackage_timepackage_page_description = 'Description';
+$s_plugin_HhTimePackage_timepackage_page_bug = 'Bogue';
 $s_plugin_HhTimePackage_timepackage_page_show_bug = 'Voir le détails';
 $s_plugin_HhTimePackage_timepackage_page_out_of_time = 'Vous ne disposez plus de temps disponible, merci de me contacter pour reprendre un forfait de temps<br />Dans l\'attente de régularisation les traitements sont stoppés';
