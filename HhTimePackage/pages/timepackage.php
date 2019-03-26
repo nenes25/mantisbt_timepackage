@@ -1,5 +1,4 @@
 <?php
-auth_reauthenticate();
 layout_page_header();
 layout_page_begin(plugin_page('timepackage'));
 plugin_require_api('core/TimePackage.php');

@@ -53,7 +53,7 @@ class HhTimePackagePlugin extends MantisPlugin
     {
         $t_hooks = array(
             'EVENT_MENU_MAIN' => 'main_menu',
-            'EVENT_BUGNOTE_ADD' => 'bugnote_add'
+            'EVENT_BUGNOTE_ADD' => 'bugnote_add',
         );
         return $t_hooks;
     }
@@ -68,7 +68,7 @@ class HhTimePackagePlugin extends MantisPlugin
             array('CreateTableSQL',
                 array(plugin_table('timepackage'), "
 	 	 		project_id		I		NOTNULL UNSIGNED PRIMARY,
-	 	 		time I NOT NULL DEFAULT '0'",
+	 	 		time I NOT NULL DEFAULT '0'", //@TODO : Change to float
                     array('mysql' => 'ENGINE=MyISAM DEFAULT CHARSET=utf8'))
             ),
             array('CreateTableSQL',
@@ -117,11 +117,13 @@ class HhTimePackagePlugin extends MantisPlugin
     public function bugnote_add($eventName, $bug_id, $bugnote_id)
     {
         if ($this->_isActive()) {
-            $t_time_tracking = gpc_get_string('time_tracking');
-            if ($t_time_tracking) {
-                $timePackage = new TimePackage(helper_get_current_project());
-                $p_time_tracking = helper_duration_to_minutes($t_time_tracking);
-                $timePackage->remove_time($p_time_tracking, $bug_id, $bugnote_id);
+            if ( gpc_isset( 'time_tracking' )) {
+                $t_time_tracking = gpc_get_string('time_tracking');
+                if ($t_time_tracking) {
+                    $timePackage = new TimePackage(helper_get_current_project());
+                    $p_time_tracking = helper_duration_to_minutes($t_time_tracking);
+                    $timePackage->remove_time($p_time_tracking, $bug_id, $bugnote_id);
+                }
             }
         }
     }
