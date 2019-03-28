@@ -54,7 +54,7 @@ class TimePackage
      */
     public function get_details()
     {
-        $t_db_query = "SELECT * 
+        $t_db_query = "SELECT d.*, n.date_submitted, t.summary 
                        FROM " . plugin_table('timepackage_details') . " d
                        LEFT JOIN " . db_get_table('bugnote') . " n ON d.bugnote_id = n.id
                        LEFT JOIN ".db_get_table('bug')." t ON d.bug_id = t.id

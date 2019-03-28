@@ -68,7 +68,7 @@ class HhTimePackagePlugin extends MantisPlugin
             array('CreateTableSQL',
                 array(plugin_table('timepackage'), "
 	 	 		project_id		I		NOTNULL UNSIGNED PRIMARY,
-	 	 		time I NOT NULL DEFAULT '0'", //@TODO : Change to float
+	 	 		time I NOT NULL DEFAULT '0'",
                     array('mysql' => 'ENGINE=MyISAM DEFAULT CHARSET=utf8'))
             ),
             array('CreateTableSQL',
@@ -112,7 +112,7 @@ class HhTimePackagePlugin extends MantisPlugin
     }
 
     /**
-     * Executed after bug updated
+     * Executed after bugnote added
      */
     public function bugnote_add($eventName, $bug_id, $bugnote_id)
     {
