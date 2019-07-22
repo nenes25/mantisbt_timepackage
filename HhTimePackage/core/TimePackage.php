@@ -1,5 +1,18 @@
 <?php
 
+# MantisBT - A PHP based bugtracking system
+# MantisBT is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#
+# MantisBT is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with MantisBT.  If not, see <http://www.gnu.org/licenses/>.
 class TimePackage
 {
 
@@ -70,12 +83,28 @@ class TimePackage
 
     /**
      * Add Time to TimePackage
-     * @param $time
+     * @param string $time time in HH:MM format
      * @param null $comment
      */
     public function add_time($time, $comment = null)
     {
-
+        #convert time hh:mm in minutes
+        try {
+            $t_time = helper_duration_to_minutes($time);
+        } catch ( \Mantis\Exceptions\ClientException $e){
+            $t_time = 0;
+        }
+        #Add details
+        $t_db_query = "INSERT INTO " . plugin_table('timepackage_details') . " 
+                       ( project_id,bug_id,bugnote_id,`time`,`comment` )
+                       VALUES (" . db_param() . "," . db_param() . "," . db_param() . "," . db_param() . "," . db_param() . ")";
+        db_query($t_db_query,
+            array($this->_project_id, 0, 0, $t_time, $comment)
+        );
+        #Update Global counter
+        $t_db_global_query = "UPDATE " . plugin_table('timepackage') . "
+                       SET `time` = (`time`+ $t_time)";
+        db_query($t_db_global_query);
     }
 
     /**
@@ -84,7 +113,6 @@ class TimePackage
      * @param $bug_id
      * @param $bugnote_id
      * @param string $message
-     * @return bool|IteratorAggregate
      */
     public function remove_time($time, $bug_id, $bugnote_id, $message = '')
     {

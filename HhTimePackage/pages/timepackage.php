@@ -16,6 +16,8 @@
 layout_page_header();
 layout_page_begin(plugin_page('timepackage'));
 plugin_require_api('core/TimePackage.php');
+$t_user_id = auth_get_current_user_id();
+$t_user_role = user_get_access_level($t_user_id,helper_get_current_project());
 $timePackage = new TimePackage(helper_get_current_project());
 $t_details = $timePackage->get_details();
 $time = db_minutes_to_hhmm($timePackage->get_time());
@@ -43,10 +45,27 @@ if ( $time < 0 ) {
         ?>
         </p>
             <?php if ( $out_of_time) : ?>
-            <p><strong><?php echo plugin_lang_get('timepackage_page_out_of_time'); ?></strong></p>
-<?php endif; ?>
+                <p><strong><?php echo plugin_lang_get('timepackage_page_out_of_time'); ?></strong></p>
+            <?php endif; ?>
         </div>
     </div>
+    </div>
+
+    <div id="timepackage-add" class="widget-box widget-color-blue2" style="margin-top: 30px">
+        <div class="widget-header">
+            <h4><?php echo plugin_lang_get('timepackage_page_add_time_package'); ?></h4>
+        </div>
+        <div class="widget-body">
+            <?php if ( $t_user_role >= ADMINISTRATOR) :?>
+                <div class="alert alert-info align-center">
+                    <p>
+                        <a href="<?php echo plugin_page('add_timepackage');?>" class="btn btn-primary btn-round">
+                            <?php echo plugin_lang_get('timepackage_page_add_time_package');?>
+                        </a>
+                    </p>
+                </div>
+            <?php endif;?>
+        </div>
     </div>
 
     <div id="timepackage-details" class="widget-box widget-color-blue2" style="margin-top: 30px">
@@ -68,7 +87,7 @@ if ( $time < 0 ) {
                     <tbody
                     <?php foreach ($t_details as $detail): ?>
                         <tr>
-                            <td><?php echo date('d/m/Y',$detail['date_submitted']); ?></td>
+                            <td><?php echo $detail['date_submitted'] != null ? date('d/m/Y',$detail['date_submitted']) : ''; ?></td>
                             <td><?php echo db_minutes_to_hhmm(abs($detail['time'])); ?></td>
                             <td>
                                 <?php if ( $detail['comment'] != '' ) :?>

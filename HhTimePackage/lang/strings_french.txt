@@ -13,3 +13,14 @@ $s_plugin_HhTimePackage_timepackage_page_description = 'Description';
 $s_plugin_HhTimePackage_timepackage_page_bug = 'Bogue';
 $s_plugin_HhTimePackage_timepackage_page_show_bug = 'Voir le détails';
 $s_plugin_HhTimePackage_timepackage_page_out_of_time = 'Vous ne disposez plus de temps disponible, merci de me contacter pour reprendre un forfait de temps<br />Dans l\'attente de régularisation les traitements sont stoppés';
+$s_plugin_HhTimePackage_timepackage_page_add_time_package = 'Ajouter un nouveau forfait';
+# add timepackage page
+$s_plugin_HhTimePackage_add_timepackage = 'Ajouter un forfait';
+$s_plugin_HhTimePackage_timepackage_time = 'Temps';
+$s_plugin_HhTimePackage_timepackage_time_description = 'Temps du nouveau forfait en Heures';
+$s_plugin_HhTimePackage_timepackage_comment = 'Commentaire';
+$s_plugin_HhTimePackage_timepackage_comment_description = 'Informations sur le forfait';
+$s_plugin_HhTimePackage_add_timepackage_form_error = 'Une erreur est survenue pendant la soumission du formulaire';
+$s_plugin_HhTimePackage_add_timepackage_select_project = 'Afin de saisir un forfait, merci de sélectionner un projet';
+$s_plugin_HhTimePackage_config_description = 'Configuration gestion des forfaits';
+$s_plugin_HhTimePackage_config_enable_for_project = "Activer la gestion des forfaits pour ce projet";

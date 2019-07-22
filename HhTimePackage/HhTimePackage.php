@@ -14,12 +14,14 @@
 # along with MantisBT.  If not, see <http://www.gnu.org/licenses/>.
 class HhTimePackagePlugin extends MantisPlugin
 {
+
+    const CONFIGURATION_KEY_ENABLED = 'timepackage_enabled';
+
     public function register()
     {
         $this->name = plugin_lang_get('title');
         $this->description = plugin_lang_get('description');
-        $this->page = '';
-
+        $this->page = 'config.php';
         $this->version = '0.0.1';
         $this->requires = array(
             'MantisCore' => '2.0.0',
@@ -41,7 +43,7 @@ class HhTimePackagePlugin extends MantisPlugin
     public function config()
     {
         return array(
-            'timepackage_enabled' => OFF,
+            self::CONFIGURATION_KEY_ENABLED => OFF,
         );
     }
 
@@ -136,7 +138,7 @@ class HhTimePackagePlugin extends MantisPlugin
         $t_current_project = helper_get_current_project();
         $t_project_id = gpc_get_int('project_id', $t_current_project);
         $t_timetracking_enabled = config_get('time_tracking_enabled', null, null, $t_project_id);
-        $t_timepackage_enabled = plugin_config_get('timepackage_enabled', OFF, false, null, $t_project_id);
+        $t_timepackage_enabled = plugin_config_get(self::CONFIGURATION_KEY_ENABLED, OFF, false, null, $t_project_id);
 
         if ($t_timetracking_enabled == ON && $t_timepackage_enabled == ON) {
             return true;

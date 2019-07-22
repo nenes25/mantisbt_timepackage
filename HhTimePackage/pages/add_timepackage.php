@@ -12,23 +12,29 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with MantisBT.  If not, see <http://www.gnu.org/licenses/>.
-auth_reauthenticate();
-access_ensure_global_level(config_get('manage_plugin_threshold'));
+#Require ADMINISTRATOR role to manage this page
+access_ensure_project_level(ADMINISTRATOR);
 layout_page_header(plugin_lang_get('title'));
 layout_page_begin();
-print_manage_menu();
-$t_project_id = helper_get_current_project();
-$t_timepackage_enabled = plugin_config_get(HhTimePackagePlugin::CONFIGURATION_KEY_ENABLED, OFF, false, null, $t_project_id);
+
+$t_has_error = gpc_get_bool('error');
+$t_current_project = helper_get_current_project();
+
+if ( $t_current_project != 0):
 ?>
     <div class="col-md-12 col-xs-12">
         <div class="space-10"></div>
         <div class="form-container">
-            <form action="<?php echo plugin_page('config_edit') ?>" method="post">
-                <?php echo form_security_field('plugin_HhTimePackage_config_edit') ?>
+            <?php if ( $t_has_error): ?>
+                <div class="alert alert-danger">
+                    <?php echo plugin_lang_get('add_timepackage_form_error');?>
+                </div>
+            <?php endif; ?>
+            <form action="<?php echo plugin_page('add_timepackage_post') ?>" method="post" class="form">
                 <div class="widget-box widget-color-blue2">
                     <div class="widget-header widget-header-small">
                         <h4 class="widget-title lighter">
-                            <?php echo plugin_lang_get('config_description') ?>
+                            <?php echo plugin_lang_get('add_timepackage') ?>
                         </h4>
                     </div>
                 </div>
@@ -38,14 +44,22 @@ $t_timepackage_enabled = plugin_config_get(HhTimePackagePlugin::CONFIGURATION_KE
                             <table class="table table-bordered table-condensed table-striped">
                                 <tr>
                                     <th class="category">
-                                        <?php echo plugin_lang_get('config_enable_for_project'); ?>
+                                        <?php echo plugin_lang_get('timepackage_time'); ?>
                                     </th>
                                     <td>
-                                        <select name="<?php echo HhTimePackagePlugin::CONFIGURATION_KEY_ENABLED; ?>">
-                                            <option value="0" <?php if ($t_timepackage_enabled == 0):?> selected="selected"<?php endif;?>><?php echo lang_get('no'); ?></option>
-                                            <option value="1" <?php if ($t_timepackage_enabled == 1):?> selected="selected"<?php endif;?>><?php echo lang_get('yes'); ?></option>
-                                        </select>
+                                        <input type="text" name="timepackage_time" class="input input-sm" placeholder="hh:mm" />
                                         <br>
+                                        <span class="small"><?php echo plugin_lang_get('timepackage_time_description'); ?></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="category">
+                                        <?php echo plugin_lang_get('timepackage_comment'); ?>
+                                    </th>
+                                    <td>
+                                        <textarea type="text" name="timepackage_comment" rows="2" cols="70"></textarea>
+                                        <br>
+                                        <span class="small"><?php echo plugin_lang_get('timepackage_comment_description'); ?></span>
                                     </td>
                                 </tr>
                             </table>
@@ -53,11 +67,15 @@ $t_timepackage_enabled = plugin_config_get(HhTimePackagePlugin::CONFIGURATION_KE
                     </div>
                     <div class="widget-toolbox padding-8 clearfix">
                         <input type="submit" class="btn btn-primary btn-white btn-round"
-                               value="<?php echo lang_get('change_configuration') ?>"/>
+                               value="<?php echo plugin_lang_get('add_timepackage') ?>"/>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-<?php
+<?php else: #Error if not project is selected ?>
+ <div class="alert alert-danger align-center">
+     <?php echo plugin_lang_get('add_timepackage_select_project'); ?>
+ </div>
+<?php endif;
 layout_page_end();

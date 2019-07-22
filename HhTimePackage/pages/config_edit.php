@@ -12,4 +12,13 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with MantisBT.  If not, see <http://www.gnu.org/licenses/>.
-?>
+form_security_validate( 'plugin_HhTimePackage_config_edit' );
+auth_reauthenticate( );
+access_ensure_global_level( config_get( 'manage_plugin_threshold' ) );
+
+$f_status = gpc_get_bool(HhTimePackagePlugin::CONFIGURATION_KEY_ENABLED);
+if( plugin_config_get( HhTimePackagePlugin::CONFIGURATION_KEY_ENABLED ) != $f_status) {
+    plugin_config_set( HhTimePackagePlugin::CONFIGURATION_KEY_ENABLED, $f_status );
+}
+
+print_successful_redirect( plugin_page( 'config', true ) );
