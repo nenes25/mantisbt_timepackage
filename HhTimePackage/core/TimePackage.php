@@ -137,8 +137,8 @@ class TimePackage
     public static function get_negative_timepackages(){
 
         $results = array();
-        $t_db_query = "SELECT * FROM ".plugin_table('timepackage');
-                      //." WHERE time <= 0";
+        $t_db_query = "SELECT * FROM ".plugin_table('timepackage')
+                      ." WHERE time <= 0";
         $t_query = db_query($t_db_query);
         while ($row = db_fetch_array($t_query)) {
             $results[] = $row;
