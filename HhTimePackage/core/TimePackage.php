@@ -128,4 +128,48 @@ class TimePackage
                        SET `time` = (`time`- $time)";
         db_query($t_db_global_query);
     }
+
+    /**
+     * Get TimePackage with negative time
+     * Use in cron to send reminders
+     * @return array
+     */
+    public static function get_negative_timepackages(){
+
+        $results = array();
+        $t_db_query = "SELECT * FROM ".plugin_table('timepackage');
+                      //." WHERE time <= 0";
+        $t_query = db_query($t_db_query);
+        while ($row = db_fetch_array($t_query)) {
+            $results[] = $row;
+        }
+
+        return $results;
+    }
+
+
+    /**
+     * Send notification email
+     *
+     * @param $subject
+     * @param $email
+     * @param $message
+     */
+    public static function send_notification_email($subject,$email,$message)
+    {
+        #Format Message
+        $messageHeader = '<html><head><title>' . $subject. '</title></head><body>';
+        $messageFooter = '</body></html>';
+        $fullMessage = $messageHeader.$message.$messageFooter;
+
+        #Format Header
+        $t_from_email = config_get('from_name').' <'.config_get('from_email').'>';
+        $headers = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+        $headers .= 'From: ' . $t_from_email . "\r\n";
+
+        #Send email
+        #@Todo Use mantis api to send email
+        mail($email, $subject, $fullMessage, $headers);
+    }
 }

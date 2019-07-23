@@ -15,7 +15,11 @@
 class HhTimePackagePlugin extends MantisPlugin
 {
 
+    /** @var string Configuration Key to define if plugin is enabled */
     const CONFIGURATION_KEY_ENABLED = 'timepackage_enabled';
+
+    /** @var string Configuration key to select user to notify */
+    const CONFIGURATION_KEY_USER_ID_TO_NOTIFY = 'timpackage_user_id_to_notify';
 
     public function register()
     {
@@ -44,6 +48,7 @@ class HhTimePackagePlugin extends MantisPlugin
     {
         return array(
             self::CONFIGURATION_KEY_ENABLED => OFF,
+            self::CONFIGURATION_KEY_USER_ID_TO_NOTIFY => 0
         );
     }
 

@@ -17,8 +17,13 @@ access_ensure_global_level(config_get('manage_plugin_threshold'));
 layout_page_header(plugin_lang_get('title'));
 layout_page_begin();
 print_manage_menu();
+
 $t_project_id = helper_get_current_project();
 $t_timepackage_enabled = plugin_config_get(HhTimePackagePlugin::CONFIGURATION_KEY_ENABLED, OFF, false, null, $t_project_id);
+$t_query = "SELECT id,username
+        FROM {user}
+        ORDER BY username ASC";
+$t_users = db_query($t_query);
 ?>
     <div class="col-md-12 col-xs-12">
         <div class="space-10"></div>
@@ -46,6 +51,24 @@ $t_timepackage_enabled = plugin_config_get(HhTimePackagePlugin::CONFIGURATION_KE
                                             <option value="1" <?php if ($t_timepackage_enabled == 1):?> selected="selected"<?php endif;?>><?php echo lang_get('yes'); ?></option>
                                         </select>
                                         <br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="category">
+                                        <?php echo plugin_lang_get('config_select_user_to_notify'); ?>
+                                    </th>
+                                    <td>
+                                        <select name="<?php echo HhTimePackagePlugin::CONFIGURATION_KEY_USER_ID_TO_NOTIFY; ?>">
+                                            <option value="0"><?php echo plugin_lang_get('config_select_user_to_notify'); ?></option>
+                                            <?php while ($user = db_fetch_array($t_users)) : ?>
+                                                <option value="<?php echo $user['id']; ?>" <?php if (plugin_config_get(HhTimePackagePlugin::CONFIGURATION_KEY_USER_ID_TO_NOTIFY )== $user['id']):
+                                                    ?> selected="selected"<?php endif; ?> >
+                                                    <?php echo $user['username']; ?>
+                                                </option>
+                                            <?php endwhile; ?>
+                                        </select>
+                                        <br>
+                                        <span class="small"><?php echo plugin_lang_get('config_select_user_to_notify_description'); ?></span>
                                     </td>
                                 </tr>
                             </table>

@@ -22,5 +22,11 @@ $s_plugin_HhTimePackage_timepackage_comment = 'Commentaire';
 $s_plugin_HhTimePackage_timepackage_comment_description = 'Informations sur le forfait';
 $s_plugin_HhTimePackage_add_timepackage_form_error = 'Une erreur est survenue pendant la soumission du formulaire';
 $s_plugin_HhTimePackage_add_timepackage_select_project = 'Afin de saisir un forfait, merci de sélectionner un projet';
+#Configuration page
 $s_plugin_HhTimePackage_config_description = 'Configuration gestion des forfaits';
 $s_plugin_HhTimePackage_config_enable_for_project = "Activer la gestion des forfaits pour ce projet";
+$s_plugin_HhTimePackage_config_select_user_to_notify = 'Utilisateur a notifier';
+$s_plugin_HhTimePackage_config_select_user_to_notify_description = 'Sélectionner l\'utilisateur qui recevra un email d\'information lorsque la durée restante du forfait sera inférieure à 0<br />Si aucun utilisateur n\'est sélectionné, il n\'y aura pas d\'envoi d\'email';
+#Cron Page
+$s_plugin_HhTimePackage_email_subject = 'Votre forfait de temps est épuisé';
+$s_plugin_HhTimePackage_email_message = 'Bonjour,<br />Vous ne disposez plus de temps disponible pour réaliser des dévelopements, merci de me contacter pour reprendre un forfait de temps.<br /><br /> Votre crédit actuel est de <strong>%s</strong><br /><br />Dans l\'attente de régularisation les traitements sont stoppés<br />Cordialement,';
