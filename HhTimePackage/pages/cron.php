@@ -21,17 +21,24 @@ $reminders = TimePackage::get_negative_timepackages();
 if (count($reminders)) {
     foreach ($reminders as $reminder) {
 
-        $t_user_id = plugin_config_get('timpackage_user_id_to_notify',
+        $t_enable_cron_reminder = plugin_config_get('timpackage_enable_cron_reminder',
             OFF, false, null, $reminder['project_id']
         );
 
-        if ($t_user_id != OFF) {
-            #Manage email translation : Warning if preference language is set to "auto" email will be send in english
-            lang_push( user_pref_get_language( $t_user_id ) );
-            $t_subject = plugin_lang_get('email_subject');
-            $t_message = sprintf(plugin_lang_get('email_message'), db_minutes_to_hhmm($reminder['time']));
-            $t_email = user_get_email($t_user_id);
-            TimePackage::send_notification_email($t_subject, $t_email, $t_message);
+        if ( $t_enable_cron_reminder != OFF) {
+
+            $t_user_id = plugin_config_get('timpackage_user_id_to_notify',
+                OFF, false, null, $reminder['project_id']
+            );
+
+            if ($t_user_id != OFF) {
+                #Manage email translation : Warning if preference language is set to "auto" email will be send in english
+                lang_push(user_pref_get_language($t_user_id));
+                $t_subject = plugin_lang_get('email_subject');
+                $t_message = sprintf(plugin_lang_get('email_message'), db_minutes_to_hhmm($reminder['time']));
+                $t_email = user_get_email($t_user_id);
+                TimePackage::send_notification_email($t_subject, $t_email, $t_message);
+            }
         }
     }
 }

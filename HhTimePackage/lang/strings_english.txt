@@ -25,6 +25,7 @@ $s_plugin_HhTimePackage_add_timepackage_select_project = 'Afin de saisir un forf
 #Config Page
 $s_plugin_HhTimePackage_config_description = 'Time Package configuration';
 $s_plugin_HhTimePackage_config_enable_for_project = "Enable Time package for this project";
+$s_plugin_HhTimePackage_config_enable_cron_reminder = 'Enable cron reminder';
 $s_plugin_HhTimePackage_config_select_user_to_notify = 'User to notify';
 $s_plugin_HhTimePackage_config_select_user_to_notify_description = 'Select user which will receive an information email when the time package is negative<br />If no user is selected no email will be send';
 #Cron Page

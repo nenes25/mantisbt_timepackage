@@ -20,6 +20,7 @@ print_manage_menu();
 
 $t_project_id = helper_get_current_project();
 $t_timepackage_enabled = plugin_config_get(HhTimePackagePlugin::CONFIGURATION_KEY_ENABLED, OFF, false, null, $t_project_id);
+$t_cron_reminder_enabled = plugin_config_get(HhTimePackagePlugin::CONFIGURATION_KEY_CRON_NOTIFY_ENABLED, OFF, false, null, $t_project_id);
 $t_query = "SELECT id,username
         FROM {user}
         ORDER BY username ASC";
@@ -49,6 +50,18 @@ $t_users = db_query($t_query);
                                         <select name="<?php echo HhTimePackagePlugin::CONFIGURATION_KEY_ENABLED; ?>">
                                             <option value="0" <?php if ($t_timepackage_enabled == 0):?> selected="selected"<?php endif;?>><?php echo lang_get('no'); ?></option>
                                             <option value="1" <?php if ($t_timepackage_enabled == 1):?> selected="selected"<?php endif;?>><?php echo lang_get('yes'); ?></option>
+                                        </select>
+                                        <br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="category">
+                                        <?php echo plugin_lang_get('config_enable_cron_reminder'); ?>
+                                    </th>
+                                    <td>
+                                        <select name="<?php echo HhTimePackagePlugin::CONFIGURATION_KEY_CRON_NOTIFY_ENABLED; ?>">
+                                            <option value="0" <?php if ($t_cron_reminder_enabled == 0):?> selected="selected"<?php endif;?>><?php echo lang_get('no'); ?></option>
+                                            <option value="1" <?php if ($t_cron_reminder_enabled == 1):?> selected="selected"<?php endif;?>><?php echo lang_get('yes'); ?></option>
                                         </select>
                                         <br>
                                     </td>

@@ -25,6 +25,7 @@ $s_plugin_HhTimePackage_add_timepackage_select_project = 'Afin de saisir un forf
 #Configuration page
 $s_plugin_HhTimePackage_config_description = 'Configuration gestion des forfaits';
 $s_plugin_HhTimePackage_config_enable_for_project = "Activer la gestion des forfaits pour ce projet";
+$s_plugin_HhTimePackage_config_enable_cron_reminder = 'Activer les relances cron';
 $s_plugin_HhTimePackage_config_select_user_to_notify = 'Utilisateur a notifier';
 $s_plugin_HhTimePackage_config_select_user_to_notify_description = 'Sélectionner l\'utilisateur qui recevra un email d\'information lorsque la durée restante du forfait sera inférieure à 0<br />Si aucun utilisateur n\'est sélectionné, il n\'y aura pas d\'envoi d\'email';
 #Cron Page

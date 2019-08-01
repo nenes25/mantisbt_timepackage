@@ -18,6 +18,9 @@ class HhTimePackagePlugin extends MantisPlugin
     /** @var string Configuration Key to define if plugin is enabled */
     const CONFIGURATION_KEY_ENABLED = 'timepackage_enabled';
 
+    /** @var string Configuration key to define if plugin cron reminder is enabled */
+    const CONFIGURATION_KEY_CRON_NOTIFY_ENABLED = 'timpackage_enable_cron_reminder';
+
     /** @var string Configuration key to select user to notify */
     const CONFIGURATION_KEY_USER_ID_TO_NOTIFY = 'timpackage_user_id_to_notify';
 
@@ -26,7 +29,7 @@ class HhTimePackagePlugin extends MantisPlugin
         $this->name = plugin_lang_get('title');
         $this->description = plugin_lang_get('description');
         $this->page = 'config.php';
-        $this->version = '0.0.1';
+        $this->version = '0.1.1';
         $this->requires = array(
             'MantisCore' => '2.0.0',
         );
@@ -40,12 +43,16 @@ class HhTimePackagePlugin extends MantisPlugin
         $this->url = 'https://www.h-hennes.fr/blog/';
     }
 
+    /**
+     * Plugin init
+     */
     public function init()
     {
         plugin_require_api('core/TimePackage.php');
     }
 
     /**
+     * Plugin config
      * @return array
      */
     public function config()

@@ -17,12 +17,17 @@ auth_reauthenticate( );
 access_ensure_global_level( config_get( 'manage_plugin_threshold' ) );
 
 $f_status = gpc_get_bool(HhTimePackagePlugin::CONFIGURATION_KEY_ENABLED);
+$f_cron = gpc_get_bool(HhTimePackagePlugin::CONFIGURATION_KEY_CRON_NOTIFY_ENABLED);
 $f_user_id =  gpc_get_int(HhTimePackagePlugin::CONFIGURATION_KEY_USER_ID_TO_NOTIFY);
 
 #Update configuration only if updated
 
 if( plugin_config_get( HhTimePackagePlugin::CONFIGURATION_KEY_ENABLED ) != $f_status) {
     plugin_config_set( HhTimePackagePlugin::CONFIGURATION_KEY_ENABLED, $f_status );
+}
+
+if( plugin_config_get( HhTimePackagePlugin::CONFIGURATION_KEY_CRON_NOTIFY_ENABLED ) != $f_cron) {
+    plugin_config_set( HhTimePackagePlugin::CONFIGURATION_KEY_CRON_NOTIFY_ENABLED, $f_cron );
 }
 
 if( plugin_config_get( HhTimePackagePlugin::CONFIGURATION_KEY_USER_ID_TO_NOTIFY) != $f_user_id) {
