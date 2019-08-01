@@ -72,8 +72,9 @@ class HhTimePackagePlugin extends MantisPlugin
         $t_hooks = array(
             'EVENT_MENU_MAIN' => 'main_menu',
             'EVENT_BUGNOTE_ADD' => 'bugnote_add',
+            'EVENT_BUGNOTE_ADD_FORM' => 'bugnote_add_form',
             #Custom Hook from plugin HhCronManager
-            //'EVENT_PLUGIN_HHCRONMANAGER_COLLECT_CRON' => 'collect_cron'
+            #'EVENT_PLUGIN_HHCRONMANAGER_COLLECT_CRON' => 'collect_cron'
         );
         return $t_hooks;
     }
@@ -133,11 +134,16 @@ class HhTimePackagePlugin extends MantisPlugin
 
     /**
      * Executed after bugnote added
+     * @param $eventName
+     * @param $bug_id
+     * @param $bugnote_id
+     * @throws \Mantis\Exceptions\ClientException
      */
     public function bugnote_add($eventName, $bug_id, $bugnote_id)
     {
         if ($this->_isActive()) {
-            if ( gpc_isset( 'time_tracking' )) {
+
+            if ( gpc_isset( 'time_tracking' ) && !gpc_isset('timepackage_dont_track')) {
                 $t_time_tracking = gpc_get_string('time_tracking');
                 if ($t_time_tracking) {
                     $timePackage = new TimePackage(helper_get_current_project());
@@ -146,6 +152,26 @@ class HhTimePackagePlugin extends MantisPlugin
                 }
             }
         }
+    }
+
+    /**
+     * Add field in bugnote form to not track time
+     * @param string $eventName
+     * @param int $bug_id
+     */
+    public function bugnote_add_form($eventName,$bug_id)
+    {
+        echo '
+            <tr>
+                <th class="category">'.plugin_lang_get('timepackage').'</th>
+                <td>
+                    <label for="bugnote_add_timepackage_dont_track">
+                    <input type="checkbox" id="timepackage_dont_track" name="timepackage_dont_track">
+                    <span class="lbl padding-6">' . plugin_lang_get('do_not_track_time') . '</span>
+                    </label>
+                </td>
+            </tr>
+            ';
     }
 
     /**

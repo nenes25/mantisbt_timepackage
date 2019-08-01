@@ -3,6 +3,8 @@
 $s_plugin_HhTimePackage_title = 'Gestion de forfaits de temps';
 $s_plugin_HhTimePackage_description = 'Plugin de gestion de forfaits de temps par projet';
 $s_plugin_HhTimePackage_menu_description = 'Temps disponible';
+$s_plugin_HhTimePackage_timepackage = 'Forfait de temps';
+$s_plugin_HhTimePackage_do_not_track_time = 'Ne pas déduire du forfait de temps';
 #timepackage page
 $s_plugin_HhTimePackage_timepackage_page_title = 'Mon Temps disponible';
 $s_plugin_HhTimePackage_timepackage_page_count = 'Votre temps de développement disponible actuellement';
