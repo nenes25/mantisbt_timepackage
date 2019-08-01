@@ -30,6 +30,10 @@ class HhTimePackagePlugin extends MantisPlugin
         $this->requires = array(
             'MantisCore' => '2.0.0',
         );
+        #Cron Manager
+        $this->uses = array(
+            'HhCronManager' => '0.1.0'
+        );
 
         $this->author = 'Hennes Hervé';
         $this->contact = 'contact@h-hennes.fr';
@@ -61,6 +65,8 @@ class HhTimePackagePlugin extends MantisPlugin
         $t_hooks = array(
             'EVENT_MENU_MAIN' => 'main_menu',
             'EVENT_BUGNOTE_ADD' => 'bugnote_add',
+            #Custom Hook from plugin HhCronManager
+            //'EVENT_PLUGIN_HHCRONMANAGER_COLLECT_CRON' => 'collect_cron'
         );
         return $t_hooks;
     }
@@ -133,6 +139,24 @@ class HhTimePackagePlugin extends MantisPlugin
                 }
             }
         }
+    }
+
+    /**
+     * Executed by module HhCronManager when collecting plugins cron tasks
+     * @param string $eventName
+     * @param array $cronList
+     * @return array
+     */
+    public function collect_cron($eventName,$cronList)
+    {
+        $cronList[get_class($this)] = array(
+            array(
+            'code' => get_class($this).'_cron_reminder',#unique code
+            'frequency' => '* * * * * *',#cron expression
+            'url' => 'cron',#plugin page name
+            )
+        );
+        return $cronList;
     }
 
     /**
