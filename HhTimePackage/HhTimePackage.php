@@ -69,13 +69,19 @@ class HhTimePackagePlugin extends MantisPlugin
      */
     function hooks()
     {
+        global $g_event_cache;
+
         $t_hooks = array(
             'EVENT_MENU_MAIN' => 'main_menu',
             'EVENT_BUGNOTE_ADD' => 'bugnote_add',
             'EVENT_BUGNOTE_ADD_FORM' => 'bugnote_add_form',
-            #Custom Hook from plugin HhCronManager
-            #'EVENT_PLUGIN_HHCRONMANAGER_COLLECT_CRON' => 'collect_cron'
         );
+
+        #Custom Hook from plugin HhCronManager
+        if ( array_key_exists('EVENT_PLUGIN_HHCRONMANAGER_COLLECT_CRON',$g_event_cache)){
+            $t_hooks['EVENT_PLUGIN_HHCRONMANAGER_COLLECT_CRON'] = 'collect_cron';
+        }
+
         return $t_hooks;
     }
 
