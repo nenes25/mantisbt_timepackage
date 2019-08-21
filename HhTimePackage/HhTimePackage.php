@@ -167,9 +167,10 @@ class HhTimePackagePlugin extends MantisPlugin
      */
     public function bugnote_add_form($eventName,$bug_id)
     {
-        echo '
+        if ( $this->_isActive()) {
+            echo '
             <tr>
-                <th class="category">'.plugin_lang_get('timepackage').'</th>
+                <th class="category">' . plugin_lang_get('timepackage') . '</th>
                 <td>
                     <label for="bugnote_add_timepackage_dont_track">
                     <input type="checkbox" id="timepackage_dont_track" name="timepackage_dont_track">
@@ -178,6 +179,7 @@ class HhTimePackagePlugin extends MantisPlugin
                 </td>
             </tr>
             ';
+        }
     }
 
     /**
