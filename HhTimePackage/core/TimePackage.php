@@ -103,8 +103,9 @@ class TimePackage
         );
         #Update Global counter
         $t_db_global_query = "UPDATE " . plugin_table('timepackage') . "
-                       SET `time` = (`time`+ $t_time)";
-        db_query($t_db_global_query);
+                       SET `time` = (`time`+ $t_time)
+                       WHERE project_id = " . db_param();
+        db_query($t_db_global_query,array($this->_project_id));
     }
 
     /**
