@@ -72,7 +72,7 @@ class TimePackage
                        LEFT JOIN " . db_get_table('bugnote') . " n ON d.bugnote_id = n.id
                        LEFT JOIN ".db_get_table('bug')." t ON d.bug_id = t.id
                        WHERE d.project_id=" . db_param().'
-                       ORDER BY n.date_submitted';
+                       ORDER BY n.date_submitted DESC';
         $t_query = db_query($t_db_query, array($this->_project_id));
         $results = array();
         while( $t_result = db_fetch_array($t_query)){
