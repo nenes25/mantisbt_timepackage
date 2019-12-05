@@ -51,22 +51,22 @@ if ( $time < 0 ) {
     </div>
     </div>
 
+<?php if ($t_user_role >= ADMINISTRATOR) : ?>
     <div id="timepackage-add" class="widget-box widget-color-blue2" style="margin-top: 30px">
         <div class="widget-header">
             <h4><?php echo plugin_lang_get('timepackage_page_add_time_package'); ?></h4>
         </div>
         <div class="widget-body">
-            <?php if ( $t_user_role >= ADMINISTRATOR) :?>
-                <div class="alert alert-info align-center">
-                    <p>
-                        <a href="<?php echo plugin_page('add_timepackage');?>" class="btn btn-primary btn-round">
-                            <?php echo plugin_lang_get('timepackage_page_add_time_package');?>
-                        </a>
-                    </p>
-                </div>
-            <?php endif;?>
+            <div class="alert alert-info align-center">
+                <p>
+                    <a href="<?php echo plugin_page('add_timepackage'); ?>" class="btn btn-primary btn-round">
+                        <?php echo plugin_lang_get('timepackage_page_add_time_package'); ?>
+                    </a>
+                </p>
+            </div>
         </div>
     </div>
+<?php endif; ?>
 
     <div id="timepackage-details" class="widget-box widget-color-blue2" style="margin-top: 30px">
         <div class="widget-header">
