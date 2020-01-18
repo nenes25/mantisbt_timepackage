@@ -193,7 +193,7 @@ class HhTimePackagePlugin extends MantisPlugin
         $cronList[get_class($this)] = array(
             array(
             'code' => get_class($this).'_cron_reminder',#unique code
-            'frequency' => '* * * * * *',#cron expression
+            'frequency' => '0 12 * * * *',#cron expression
             'url' => 'cron',#plugin page name
             )
         );
