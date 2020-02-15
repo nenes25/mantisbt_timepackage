@@ -78,7 +78,7 @@ class HhTimePackagePlugin extends MantisPlugin
         );
 
         #Custom Hook from plugin HhCronManager
-        if ( array_key_exists('EVENT_PLUGIN_HHCRONMANAGER_COLLECT_CRON',$g_event_cache)){
+        if (array_key_exists('EVENT_PLUGIN_HHCRONMANAGER_COLLECT_CRON', $g_event_cache)) {
             $t_hooks['EVENT_PLUGIN_HHCRONMANAGER_COLLECT_CRON'] = 'collect_cron';
         }
 
@@ -121,11 +121,11 @@ class HhTimePackagePlugin extends MantisPlugin
         if ($this->_isActive()) {
 
             $timePackage = new TimePackage(helper_get_current_project());
-            $title = plugin_lang_get('menu_description').'<br />';
+            $title = plugin_lang_get('menu_description') . '<br />';
             $time = db_minutes_to_hhmm($timePackage->get_time());
             $timePackage->get_time() < 0 ?
-                $title .= '<strong style="color:#FF0000">'.$time.'H</strong>':
-                $title .= '<strong>'.$time.'H</strong>';
+                $title .= '<strong style="color:#FF0000">' . $time . 'H</strong>' :
+                $title .= '<strong>' . $time . 'H</strong>';
 
             return array(
                 array(
@@ -149,7 +149,7 @@ class HhTimePackagePlugin extends MantisPlugin
     {
         if ($this->_isActive()) {
 
-            if ( gpc_isset( 'time_tracking' ) && !gpc_isset('timepackage_dont_track')) {
+            if (gpc_isset('time_tracking') && !gpc_isset('timepackage_dont_track')) {
                 $t_time_tracking = gpc_get_string('time_tracking');
                 if ($t_time_tracking) {
                     $timePackage = new TimePackage(helper_get_current_project());
@@ -165,9 +165,9 @@ class HhTimePackagePlugin extends MantisPlugin
      * @param string $eventName
      * @param int $bug_id
      */
-    public function bugnote_add_form($eventName,$bug_id)
+    public function bugnote_add_form($eventName, $bug_id)
     {
-        if ( $this->_isActive()) {
+        if ($this->_isActive()) {
             echo '
             <tr>
                 <th class="category">' . plugin_lang_get('timepackage') . '</th>
@@ -185,19 +185,18 @@ class HhTimePackagePlugin extends MantisPlugin
     /**
      * Executed by module HhCronManager when collecting plugins cron tasks
      * @param string $eventName
-     * @param array $cronList
      * @return array
      */
-    public function collect_cron($eventName,$cronList)
+    public function collect_cron($eventName)
     {
-        $cronList[get_class($this)] = array(
-            array(
-            'code' => get_class($this).'_cron_reminder',#unique code
-            'frequency' => '0 12 * * * *',#cron expression
-            'url' => 'cron',#plugin page name
-            )
-        );
-        return $cronList;
+        return [
+            [
+                'plugin' => get_class($this),
+                'code' => get_class($this) . '_cron_reminder',#unique code
+                'frequency' => '0 12 * * * *',#cron expression
+                'url' => 'cron',#plugin page name
+            ],
+        ];
     }
 
     /**
