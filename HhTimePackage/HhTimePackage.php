@@ -189,10 +189,11 @@ class HhTimePackagePlugin extends MantisPlugin
      */
     public function collect_cron($eventName)
     {
+        $pluginName = str_replace('Plugin','',get_class($this));
         return [
             [
-                'plugin' => get_class($this),
-                'code' => get_class($this) . '_cron_reminder',#unique code
+                'plugin' => $pluginName,
+                'code' => $pluginName . '_cron_reminder',#unique code
                 'frequency' => '0 12 * * * *',#cron expression
                 'url' => 'cron',#plugin page name
             ],
