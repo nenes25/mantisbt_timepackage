@@ -16,11 +16,18 @@
 layout_page_header();
 layout_page_begin(plugin_page('timepackage'));
 plugin_require_api('core/TimePackage.php');
+
 $t_user_id = auth_get_current_user_id();
 $t_user_role = user_get_access_level($t_user_id, helper_get_current_project());
+
 $timePackage = new TimePackage(helper_get_current_project());
-$t_details = $timePackage->get_details();
+
+$f_page_number		= gpc_get_int( 'page_number', 1 );
+$t_result_per_page = 50;
+$t_page_count = ceil(count($timePackage->get_details())/$t_result_per_page);
+$t_details = $timePackage->get_details($f_page_number,$t_result_per_page);
 $t_details_add = $timePackage->get_add_details();
+
 $time = db_minutes_to_hhmm($timePackage->get_time());
 if ($time < 0) {
     $out_of_time = true;
@@ -85,7 +92,17 @@ if ($time < 0) {
         <div class="tab-pane active" id="timepackage-details">
             <div class="widget-box widget-color-blue2" style="margin-top: 30px">
                 <div class="widget-header">
-                    <h4><?php echo plugin_lang_get('timepackage_page_detail_title'); ?></h4>
+                    <div class="padding-8 clearfix">
+                    <div class="pull-left">
+                        <h4><?php echo plugin_lang_get('timepackage_page_detail_title'); ?></h4>
+                    </div>
+                    <div class="btn-group pull-right"><?php
+                        # -- Page number links -- #
+                        $t_tmp_filter_key = '';
+                        print_page_links( 'plugin.php?page=HhTimePackage/timepackage', 1, $t_page_count, (int)$f_page_number, $t_tmp_filter_key );
+                        ?>
+                    </div>
+                    </div>
                 </div>
                 <div class="widget-body">
                     <?php

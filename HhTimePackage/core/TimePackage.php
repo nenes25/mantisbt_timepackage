@@ -64,8 +64,11 @@ class TimePackage
 
     /**
      * Get Timepackage details
+     * @param null $page_number
+     * @param int $nb_per_page
+     * @return array
      */
-    public function get_details()
+    public function get_details($page_number=null,$nb_per_page=30)
     {
         $t_db_query = "SELECT d.*, n.date_submitted, t.summary 
                        FROM " . plugin_table('timepackage_details') . " d
@@ -73,6 +76,12 @@ class TimePackage
                        LEFT JOIN ".db_get_table('bug')." t ON d.bug_id = t.id
                        WHERE d.project_id=" . db_param().'
                        ORDER BY n.date_submitted DESC';
+
+        if ( null !== $page_number ){
+            $page_number = (int)$page_number;
+            $t_db_query .= " LIMIT ".(($page_number-1)*$nb_per_page).",".$nb_per_page;
+        }
+
         $t_query = db_query($t_db_query, array($this->_project_id));
         $results = array();
         while( $t_result = db_fetch_array($t_query)){
