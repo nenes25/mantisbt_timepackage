@@ -29,7 +29,7 @@ class HhTimePackagePlugin extends MantisPlugin
         $this->name = plugin_lang_get('title');
         $this->description = plugin_lang_get('description');
         $this->page = 'config.php';
-        $this->version = '0.1.1';
+        $this->version = '0.2.0';
         $this->requires = array(
             'MantisCore' => '2.0.0',
         );
@@ -73,6 +73,7 @@ class HhTimePackagePlugin extends MantisPlugin
 
         $t_hooks = array(
             'EVENT_MENU_MAIN' => 'main_menu',
+            'EVENT_MENU_MANAGE' => 'menu_manage',
             'EVENT_BUGNOTE_ADD' => 'bugnote_add',
             'EVENT_BUGNOTE_ADD_FORM' => 'bugnote_add_form',
         );
@@ -136,6 +137,17 @@ class HhTimePackagePlugin extends MantisPlugin
                 ),
             );
         }
+    }
+
+    /**
+     * Add new link to manage menu
+     * @return string
+     */
+    public function menu_manage(){
+        $page = plugin_page( "list" );
+        $label = plugin_lang_get( "list_title" );
+
+        return "<a href=\"{$page}\">{$label}</a>";
     }
 
     /**

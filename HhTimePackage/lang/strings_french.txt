@@ -16,6 +16,7 @@ $s_plugin_HhTimePackage_timepackage_page_bug = 'Bogue';
 $s_plugin_HhTimePackage_timepackage_page_show_bug = 'Voir le détails';
 $s_plugin_HhTimePackage_timepackage_page_out_of_time = 'Vous ne disposez plus de temps disponible, merci de me contacter pour reprendre un forfait de temps<br />Dans l\'attente de régularisation les traitements sont stoppés';
 $s_plugin_HhTimePackage_timepackage_page_add_time_package = 'Ajouter un nouveau forfait';
+$s_plugin_HhTimePackage_timepackage_page_detail_add_title = 'Liste des forfaits ajoutés';
 # add timepackage page
 $s_plugin_HhTimePackage_add_timepackage = 'Ajouter un forfait';
 $s_plugin_HhTimePackage_timepackage_time = 'Temps';
@@ -33,3 +34,7 @@ $s_plugin_HhTimePackage_config_select_user_to_notify_description = 'Sélectionne
 #Cron Page
 $s_plugin_HhTimePackage_email_subject = 'Votre forfait de temps est épuisé';
 $s_plugin_HhTimePackage_email_message = 'Bonjour,<br />Vous ne disposez plus de temps disponible pour réaliser des dévelopements, merci de me contacter pour reprendre un forfait de temps.<br /><br /> Votre crédit actuel est de <strong>%s</strong><br /><br />Dans l\'attente de régularisation les traitements sont stoppés<br />Cordialement,';
+#List Page
+$s_plugin_HhTimePackage_list_title = "Forfaits";
+$s_plugin_HhTimePackage_project = "Projet";
+$s_plugin_HhTimePackage_remaining_time = "Temps restant";

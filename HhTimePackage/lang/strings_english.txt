@@ -16,6 +16,7 @@ $s_plugin_HhTimePackage_timepackage_page_bug = 'Bug';
 $s_plugin_HhTimePackage_timepackage_page_show_bug = 'Show details';
 $s_plugin_HhTimePackage_timepackage_page_out_of_time = 'You\'re out of time, please contact us to get a new time package.';
 $s_plugin_HhTimePackage_timepackage_page_add_time_package = 'Add new time package';
+$s_plugin_HhTimePackage_timepackage_page_detail_add_title = 'List of added Timepackages';
 # add timepackage page
 $s_plugin_HhTimePackage_add_timepackage = 'Ajouter un forfait';
 $s_plugin_HhTimePackage_timepackage_time = 'Temps';
@@ -33,3 +34,7 @@ $s_plugin_HhTimePackage_config_select_user_to_notify_description = 'Select user 
 #Cron Page
 $s_plugin_HhTimePackage_email_subject = 'Your time package is empty';
 $s_plugin_HhTimePackage_email_message = 'Hello,<br />You\'re out of time of developement.<br /> Your current balance is <strong>%s</strong> <br /> please contact us to get a new time package.';
+#List Page
+$s_plugin_HhTimePackage_list_title = "Timepackages";
+$s_plugin_HhTimePackage_project = "Project";
+$s_plugin_HhTimePackage_remaining_time = "Remaining Time";

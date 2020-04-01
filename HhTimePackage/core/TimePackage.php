@@ -63,16 +63,33 @@ class TimePackage
     }
 
     /**
-     * Récupération des détails
+     * Get Timepackage details
      */
     public function get_details()
     {
         $t_db_query = "SELECT d.*, n.date_submitted, t.summary 
                        FROM " . plugin_table('timepackage_details') . " d
-                       LEFT JOIN " . db_get_table('bugnote') . " n ON d.bugnote_id = n.id
+                       INNER JOIN " . db_get_table('bugnote') . " n ON d.bugnote_id = n.id
                        LEFT JOIN ".db_get_table('bug')." t ON d.bug_id = t.id
                        WHERE d.project_id=" . db_param().'
                        ORDER BY n.date_submitted DESC';
+        $t_query = db_query($t_db_query, array($this->_project_id));
+        $results = array();
+        while( $t_result = db_fetch_array($t_query)){
+            $results[] = $t_result;
+        }
+        return $results;
+    }
+
+    /**
+     * Get Timepackage details ( add time only )
+     */
+    public function get_add_details()
+    {
+        $t_db_query = "SELECT d.*
+                       FROM " . plugin_table('timepackage_details') . " d
+                       WHERE d.project_id=" . db_param().'
+                       AND d.bug_id=0';
         $t_query = db_query($t_db_query, array($this->_project_id));
         $results = array();
         while( $t_result = db_fetch_array($t_query)){
@@ -129,6 +146,26 @@ class TimePackage
                        SET `time` = (`time`- $time)
                        WHERE project_id = " . db_param();
         db_query($t_db_global_query,array($this->_project_id));
+    }
+
+
+    /**
+     * Get All Timepackages
+     * @return  array
+     */
+    public static function get_timepackages()
+    {
+        $results = array();
+        $t_db_query = "SELECT t.*, p.name 
+         FROM ".plugin_table('timepackage')." t
+         LEFT JOIN ".db_get_table('project')." p ON t.project_id = p.id
+         WHERE `time` IS NOT NULL";
+        $t_query = db_query($t_db_query);
+        while ($row = db_fetch_array($t_query)) {
+            $results[] = $row;
+        }
+
+        return $results;
     }
 
     /**
