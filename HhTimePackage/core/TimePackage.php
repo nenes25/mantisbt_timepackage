@@ -66,15 +66,24 @@ class TimePackage
      * Get Timepackage details
      * @param null $page_number
      * @param int $nb_per_page
+     * @param array $filters
      * @return array
      */
-    public function get_details($page_number=null,$nb_per_page=30)
+    public function get_details($page_number=null,$nb_per_page=30,$filters=array())
     {
+        $filtersConditions = '';
+        if (count($filters)){
+            if ( isset($filters['date'])){
+                $filtersConditions = "AND n.date_submitted >= ".strtotime($filters['date']['from'])." AND n.date_submitted <=".strtotime($filters['date']['to'])."";
+            }
+        }
+
         $t_db_query = "SELECT d.*, n.date_submitted, t.summary 
                        FROM " . plugin_table('timepackage_details') . " d
                        INNER JOIN " . db_get_table('bugnote') . " n ON d.bugnote_id = n.id
                        LEFT JOIN ".db_get_table('bug')." t ON d.bug_id = t.id
                        WHERE d.project_id=" . db_param().'
+                       '.$filtersConditions.' 
                        ORDER BY n.date_submitted DESC';
 
         if ( null !== $page_number ){

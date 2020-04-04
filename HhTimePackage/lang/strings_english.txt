@@ -14,9 +14,13 @@ $s_plugin_HhTimePackage_timepackage_page_time = 'Time';
 $s_plugin_HhTimePackage_timepackage_page_description = 'description';
 $s_plugin_HhTimePackage_timepackage_page_bug = 'Bug';
 $s_plugin_HhTimePackage_timepackage_page_show_bug = 'Show details';
+$s_plugin_HhTimePackage_timepackage_page_no_details = 'No details';
 $s_plugin_HhTimePackage_timepackage_page_out_of_time = 'You\'re out of time, please contact us to get a new time package.';
 $s_plugin_HhTimePackage_timepackage_page_add_time_package = 'Add new time package';
 $s_plugin_HhTimePackage_timepackage_page_detail_add_title = 'List of added Timepackages';
+$s_plugin_HhTimePackage_timepackage_page_detail_filters = 'Filters';
+$s_plugin_HhTimePackage_timepackage_apply_filters = 'Filter';
+$s_plugin_HhTimePackage_timepackage_reset_filters = 'Reset filters';
 # add timepackage page
 $s_plugin_HhTimePackage_add_timepackage = 'Ajouter un forfait';
 $s_plugin_HhTimePackage_timepackage_time = 'Temps';

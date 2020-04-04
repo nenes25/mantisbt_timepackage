@@ -19,13 +19,52 @@ plugin_require_api('core/TimePackage.php');
 
 $t_user_id = auth_get_current_user_id();
 $t_user_role = user_get_access_level($t_user_id, helper_get_current_project());
+$f_page_number = gpc_get_int('page_number', 1);
+$t_result_per_page = 50;
 
 $timePackage = new TimePackage(helper_get_current_project());
 
-$f_page_number		= gpc_get_int( 'page_number', 1 );
-$t_result_per_page = 50;
-$t_page_count = ceil(count($timePackage->get_details())/$t_result_per_page);
-$t_details = $timePackage->get_details($f_page_number,$t_result_per_page);
+#ProcessFilters
+$filter = null;
+$filters = [];
+
+#Manage filters when submiting form
+#@Todo this part should be optimized
+#If one is filled the date filter is enabled
+if (gpc_isset('from_date_year')) {
+    $from_date = gpc_get_int('from_date_year') . '-'
+        . str_pad(gpc_get_int('from_date_month'), 2, 0, STR_PAD_LEFT) . '-'
+        . str_pad(gpc_get_int('from_date_day'), 2, 0, STR_PAD_LEFT);
+    $to_date = gpc_get_int('to_date_year') . '-'
+        . str_pad(gpc_get_int('to_date_month'), 2, 0, STR_PAD_LEFT) . '-'
+        . str_pad(gpc_get_int('to_date_day'), 2, 0, STR_PAD_LEFT);
+    $filter = '1&from_date=' . $from_date . '&to_date=' . $to_date;
+
+    $filters['date'] = [
+        'from' => $from_date,
+        'to' => $to_date,
+    ];
+}
+#Manage filters in pagination
+if (gpc_isset('from_date')) {
+    $from_date = gpc_get_string('from_date');
+    $to_date = gpc_get_string('to_date');
+    $filter = '1&from_date=' . $from_date . '&to_date=' . $to_date;
+    $filters['date'] = [
+        'from' => $from_date,
+        'to' => $to_date,
+    ];
+}
+#Filter default values
+isset($filters['date']['from']) ? $t_from_date_timeStamp = strtotime($filters['date']['from']) : $t_from_date_timeStamp = 0;
+isset($filters['date']['to']) ? $t_to_date_timeStamp  = strtotime($filters['date']['to']) : $t_to_date_timeStamp = 0;
+
+
+#Details List
+$t_page_count = ceil(count($timePackage->get_details(null, $t_result_per_page,$filters)) / $t_result_per_page);
+$t_details = $timePackage->get_details($f_page_number, $t_result_per_page, $filters);
+
+#Details add List
 $t_details_add = $timePackage->get_add_details();
 
 $time = db_minutes_to_hhmm($timePackage->get_time());
@@ -78,12 +117,12 @@ if ($time < 0) {
 
     <ul class="nav nav-tabs padding-18" style="margin-top: 30px">
         <li class="nav-item active">
-            <a href="#timepackage-details"  data-toggle="tab">
+            <a href="#timepackage-details" data-toggle="tab">
                 <?php echo plugin_lang_get('timepackage_page_detail_title'); ?>
             </a>
         </li>
         <li class="nav-item">
-            <a href="#timepackage-details_add"  data-toggle="tab">
+            <a href="#timepackage-details_add" data-toggle="tab">
                 <?php echo plugin_lang_get('timepackage_page_detail_add_title'); ?>
             </a>
         </li>
@@ -93,62 +132,104 @@ if ($time < 0) {
             <div class="widget-box widget-color-blue2" style="margin-top: 30px">
                 <div class="widget-header">
                     <div class="padding-8 clearfix">
-                    <div class="pull-left">
-                        <h4><?php echo plugin_lang_get('timepackage_page_detail_title'); ?></h4>
+                        <div class="pull-left">
+                            <h4><?php echo plugin_lang_get('timepackage_page_detail_title'); ?></h4>
+                        </div>
+                        <div class="btn-group pull-right"><?php
+                            $t_tmp_filter_key = (null !== $filter) ? $filter : '';
+                            print_page_links('plugin.php?page=HhTimePackage/timepackage', 1, $t_page_count, (int)$f_page_number, $t_tmp_filter_key);
+                            ?>
+                        </div>
                     </div>
-                    <div class="btn-group pull-right"><?php
-                        # -- Page number links -- #
-                        $t_tmp_filter_key = '';
-                        print_page_links( 'plugin.php?page=HhTimePackage/timepackage', 1, $t_page_count, (int)$f_page_number, $t_tmp_filter_key );
-                        ?>
-                    </div>
-                    </div>
-                </div>
-                <div class="widget-body">
-                    <?php
-                    if (sizeof($t_details)):?>
-                        <table id="details_list" class="table">
-                            <thead>
-                            <tr>
-                                <th><?php echo plugin_lang_get('timepackage_page_date'); ?></th>
-                                <th><?php echo plugin_lang_get('timepackage_page_time'); ?></th>
-                                <th><?php echo plugin_lang_get('timepackage_page_description'); ?></th>
-                                <th><?php echo plugin_lang_get('timepackage_page_show_bug'); ?></th>
-                            </tr>
-                            </thead>
-                            <tbody
-                            <?php foreach ($t_details as $detail): ?>
-                                <tr>
-                                    <td><?php echo $detail['date_submitted'] != null ? date('d/m/Y', $detail['date_submitted']) : ''; ?></td>
-                                    <td><?php echo db_minutes_to_hhmm(abs($detail['time'])); ?></td>
-                                    <td>
-                                        <?php if ($detail['comment'] != '') : ?>
-                                            <?php echo $detail['comment']; ?>
-                                        <?php else: ?>
-                                            <?php if ($detail['summary'] != ''): ?>
-                                                <?php echo plugin_lang_get('timepackage_page_bug') . ' ' . $detail['bug_id'] . ' : ' . $detail['summary']; ?>
-                                            <?php endif; ?>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>
-                                        <?php if ($detail['bugnote_id'] != 0): ?>
-                                            <a href="<?php echo string_get_bugnote_view_url_with_fqdn($detail['bug_id'], $detail['bugnote_id']); ?>"
-                                               target="_blank">
-                                                <?php echo plugin_lang_get('timepackage_page_show_bug'); ?>
-                                            </a>
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                            </tbody>
-                        </table>
-
-                    <?php else : ?>
-                    <p><?php plugin_lang_get('timepackage_page_no_details'); ?>
-                        <?php endif; ?>
                 </div>
             </div>
-        </div >
+            <div class="widget-body">
+                <div class="padding-8 clearfix">
+                    <h5><?php echo plugin_lang_get('timepackage_page_detail_filters'); ?></h5>
+                    <form method="get" action="<?php echo plugin_page('timepackage') ?>">
+                        <input type="hidden" name="page" value="HhTimePackage/timepackage"/>
+                        <table cellpadding="0" cellspacing="0" class="table table-condensed">
+                            <tr>
+                                <td><?php echo lang_get('start_date_label'); ?></td>
+                                <td class="nowrap">
+                                    <?php echo print_date_selection_set(
+                                        'from_date',
+                                        config_get('short_date_format'),
+                                        $t_from_date_timeStamp,
+                                        false, false,0,date('Y')
+                                    ); ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><?php echo lang_get('end_date_label'); ?></td>
+                                <td class="nowrap">
+                                    <?php echo print_date_selection_set(
+                                        'to_date',
+                                        config_get('short_date_format'),
+                                        $t_to_date_timeStamp,
+                                        false, false,0,date('Y')
+                                    );
+                                    ?>
+                                </td>
+                            </tr>
+                            <tr class="category">
+                                <td colspan="2">
+                                    <input class="btn btn-primary btn-sm btn-white btn-round"
+                                           value="<?php echo plugin_lang_get('timepackage_apply_filters'); ?>"
+                                           type="submit">
+                                    <a href="<?php echo plugin_page('timepackage'); ?>">
+                                        <input class="btn btn-primary btn-sm btn-white btn-round"
+                                               value="<?php echo plugin_lang_get('timepackage_reset_filters'); ?>"
+                                               type="button"/>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <?php
+            if (sizeof($t_details)):?>
+                <table id="details_list" class="table">
+                    <thead>
+                    <tr>
+                        <th><?php echo plugin_lang_get('timepackage_page_date'); ?></th>
+                        <th><?php echo plugin_lang_get('timepackage_page_time'); ?></th>
+                        <th><?php echo plugin_lang_get('timepackage_page_description'); ?></th>
+                        <th><?php echo plugin_lang_get('timepackage_page_show_bug'); ?></th>
+                    </tr>
+                    </thead>
+                    <tbody
+                    <?php foreach ($t_details as $detail): ?>
+                        <tr>
+                            <td><?php echo $detail['date_submitted'] != null ? date('d/m/Y', $detail['date_submitted']) : ''; ?></td>
+                            <td><?php echo db_minutes_to_hhmm(abs($detail['time'])); ?></td>
+                            <td>
+                                <?php if ($detail['comment'] != '') : ?>
+                                    <?php echo $detail['comment']; ?>
+                                <?php else: ?>
+                                    <?php if ($detail['summary'] != ''): ?>
+                                        <?php echo plugin_lang_get('timepackage_page_bug') . ' ' . $detail['bug_id'] . ' : ' . $detail['summary']; ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if ($detail['bugnote_id'] != 0): ?>
+                                    <a href="<?php echo string_get_bugnote_view_url_with_fqdn($detail['bug_id'], $detail['bugnote_id']); ?>"
+                                       target="_blank">
+                                        <?php echo plugin_lang_get('timepackage_page_show_bug'); ?>
+                                    </a>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+
+            <?php else : ?>
+            <p><?php plugin_lang_get('timepackage_page_no_details'); ?>
+                <?php endif; ?>
+        </div>
         <div class="tab-pane" id="timepackage-details_add">
             <div class="widget-box widget-color-blue2" style="margin-top: 30px">
                 <div class="widget-header">

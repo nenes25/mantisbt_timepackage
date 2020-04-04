@@ -14,9 +14,13 @@ $s_plugin_HhTimePackage_timepackage_page_time = 'Temps';
 $s_plugin_HhTimePackage_timepackage_page_description = 'Description';
 $s_plugin_HhTimePackage_timepackage_page_bug = 'Bogue';
 $s_plugin_HhTimePackage_timepackage_page_show_bug = 'Voir le détails';
+$s_plugin_HhTimePackage_timepackage_page_no_details = 'Pas de détails';
 $s_plugin_HhTimePackage_timepackage_page_out_of_time = 'Vous ne disposez plus de temps disponible, merci de me contacter pour reprendre un forfait de temps<br />Dans l\'attente de régularisation les traitements sont stoppés';
 $s_plugin_HhTimePackage_timepackage_page_add_time_package = 'Ajouter un nouveau forfait';
 $s_plugin_HhTimePackage_timepackage_page_detail_add_title = 'Liste des forfaits ajoutés';
+$s_plugin_HhTimePackage_timepackage_page_detail_filters = 'Filtres';
+$s_plugin_HhTimePackage_timepackage_apply_filters = 'Appliquer les filtres';
+$s_plugin_HhTimePackage_timepackage_reset_filters = 'Réinitialiser les filtres';
 # add timepackage page
 $s_plugin_HhTimePackage_add_timepackage = 'Ajouter un forfait';
 $s_plugin_HhTimePackage_timepackage_time = 'Temps';
