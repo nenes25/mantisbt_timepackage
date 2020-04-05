@@ -21,6 +21,7 @@ $s_plugin_HhTimePackage_timepackage_page_detail_add_title = 'Liste des forfaits 
 $s_plugin_HhTimePackage_timepackage_page_detail_filters = 'Filtres';
 $s_plugin_HhTimePackage_timepackage_apply_filters = 'Appliquer les filtres';
 $s_plugin_HhTimePackage_timepackage_reset_filters = 'Réinitialiser les filtres';
+$s_plugin_HhTimePackage_timepackage_export = 'Exporter';
 # add timepackage page
 $s_plugin_HhTimePackage_add_timepackage = 'Ajouter un forfait';
 $s_plugin_HhTimePackage_timepackage_time = 'Temps';

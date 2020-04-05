@@ -21,6 +21,7 @@ $s_plugin_HhTimePackage_timepackage_page_detail_add_title = 'List of added Timep
 $s_plugin_HhTimePackage_timepackage_page_detail_filters = 'Filters';
 $s_plugin_HhTimePackage_timepackage_apply_filters = 'Filter';
 $s_plugin_HhTimePackage_timepackage_reset_filters = 'Reset filters';
+$s_plugin_HhTimePackage_timepackage_export = 'Export';
 # add timepackage page
 $s_plugin_HhTimePackage_add_timepackage = 'Ajouter un forfait';
 $s_plugin_HhTimePackage_timepackage_time = 'Temps';

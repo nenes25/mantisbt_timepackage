@@ -182,6 +182,11 @@ if ($time < 0) {
                                                value="<?php echo plugin_lang_get('timepackage_reset_filters'); ?>"
                                                type="button"/>
                                     </a>
+                                    <a href="<?php echo plugin_page('export').'&params='.$t_tmp_filter_key; ?>">
+                                        <input class="btn btn-primary btn-sm btn-white btn-round"
+                                               value="<?php echo plugin_lang_get('timepackage_export'); ?>"
+                                               type="button"/>
+                                    </a>
                                 </td>
                             </tr>
                         </table>
