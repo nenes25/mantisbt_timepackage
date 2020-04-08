@@ -76,6 +76,7 @@ class HhTimePackagePlugin extends MantisPlugin
             'EVENT_MENU_MANAGE' => 'menu_manage',
             'EVENT_BUGNOTE_ADD' => 'bugnote_add',
             'EVENT_BUGNOTE_ADD_FORM' => 'bugnote_add_form',
+            'EVENT_VIEW_BUGNOTES_END' => 'bug_after_notes',
         );
 
         #Custom Hook from plugin HhCronManager
@@ -191,6 +192,38 @@ class HhTimePackagePlugin extends MantisPlugin
                 </td>
             </tr>
             ';
+        }
+    }
+
+    /**
+     * Display statitics invoiced / real time under bugnotes
+     * @param $eventName
+     * @param $bug_id
+     */
+    public function bug_after_notes($eventName,$bug_id)
+    {
+        if ( $this->_isActive()) {
+            $stats_infos = TimePackage::get_bug_stats($bug_id);
+            if ( $stats_infos['time_tracking'] > 0){
+
+                //Calc the dif between time_tracking and time_package
+                $t_diff_percent = (( $stats_infos['time_tracking'] - $stats_infos['time_package'] ) / $stats_infos['time_tracking'])* 100;
+                echo '<tr>
+                        <td class="category">
+                        <i class="fa fa-clock-o grey"></i>
+                        '.plugin_lang_get('timepackage_bug_stats').'
+                        </td>
+                        <td>
+                        <div class="pull-left">
+                        <i class="ace-icon fa fa-clock-o bigger-110 red"></i> 
+                        '.plugin_lang_get('timepackage_reported_time').'  <span class="time-tracked bold"> '.db_minutes_to_hhmm($stats_infos['time_package']).'</span>
+                        </div>
+                        <div class="pull-right">
+                            <span class="bold">'.ceil(100- $t_diff_percent).'%</span>  '.plugin_lang_get('timepackage_of_total_time').'
+                        </div>
+                        </td>
+                      </tr>';
+            }
         }
     }
 

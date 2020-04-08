@@ -5,6 +5,9 @@ $s_plugin_HhTimePackage_description = 'Custom Time Manager';
 $s_plugin_HhTimePackage_menu_description = 'Out of time';
 $s_plugin_HhTimePackage_timepackage = 'Timepackage';
 $s_plugin_HhTimePackage_do_not_track_time = 'Don`t track time in timepackage';
+$s_plugin_HhTimePackage_timepackage_bug_stats = 'Timepackage statistics';
+$s_plugin_HhTimePackage_timepackage_reported_time = 'Reported time';
+$s_plugin_HhTimePackage_timepackage_of_total_time = 'of total time';
 #timepackage page
 $s_plugin_HhTimePackage_timepackage_page_title = 'Mon available time';
 $s_plugin_HhTimePackage_timepackage_page_count = 'Your time actualy remaining';

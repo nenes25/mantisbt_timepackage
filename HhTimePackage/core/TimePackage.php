@@ -263,4 +263,32 @@ class TimePackage
         mail($email, $subject, $fullMessage, $headers);
     }
 
+    /**
+     * Get Bug statistics timepackage Time / Time tracked time
+     * @param $bug_id
+     * @return array
+     */
+    public static function get_bug_stats($bug_id)
+    {
+       $return = [];
+
+        #Get sum of all time_tracking of the bug
+        $t_db_query_time_tracking = "SELECT SUM(time_tracking) as total 
+                                     FROM  ".db_get_table('bugnote')." 
+                                     WHERE bug_id=".db_param();
+        $t_query_time_tracking = db_query($t_db_query_time_tracking, array($bug_id));
+        $t_time_tracking = (int)db_result($t_query_time_tracking);
+        $return['time_tracking'] = $t_time_tracking;
+
+        #Get sum of all time_tracking associated with timePackage
+        $t_db_query_time_package = "SELECT SUM(ABS(`time`)) as total 
+                                    FROM  ".plugin_table("timepackage_details")." 
+                                    WHERE bug_id=".db_param();
+        $t_query_time_package = db_query($t_db_query_time_package, array($bug_id));
+        $t_time_package = (int)db_result($t_query_time_package);
+        $return['time_package'] = $t_time_package;
+
+       return $return;
+    }
+
 }
