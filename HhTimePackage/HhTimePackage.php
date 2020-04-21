@@ -29,7 +29,7 @@ class HhTimePackagePlugin extends MantisPlugin
         $this->name = plugin_lang_get('title');
         $this->description = plugin_lang_get('description');
         $this->page = 'config.php';
-        $this->version = '0.2.0';
+        $this->version = '0.2.1';
         $this->requires = array(
             'MantisCore' => '2.0.0',
         );
@@ -180,7 +180,7 @@ class HhTimePackagePlugin extends MantisPlugin
      */
     public function bugnote_add_form($eventName, $bug_id)
     {
-        if ($this->_isActive()) {
+        if ($this->_isActive() && $this->_getCurrentUserRole() >= DEVELOPER) {
             echo '
             <tr>
                 <th class="category">' . plugin_lang_get('timepackage') . '</th>
@@ -202,7 +202,7 @@ class HhTimePackagePlugin extends MantisPlugin
      */
     public function bug_after_notes($eventName,$bug_id)
     {
-        if ( $this->_isActive()) {
+        if ( $this->_isActive() ) {
             $stats_infos = TimePackage::get_bug_stats($bug_id);
             if ( $stats_infos['time_tracking'] > 0){
 
@@ -217,11 +217,15 @@ class HhTimePackagePlugin extends MantisPlugin
                         <div class="pull-left">
                         <i class="ace-icon fa fa-clock-o bigger-110 red"></i> 
                         '.plugin_lang_get('timepackage_reported_time').'  <span class="time-tracked bold"> '.db_minutes_to_hhmm($stats_infos['time_package']).'</span>
-                        </div>
+                        </div>';
+
+                if ( $this->_getCurrentUserRole() >= DEVELOPER) {
+                    echo '
                         <div class="pull-right">
-                            <span class="bold">'.ceil(100- $t_diff_percent).'%</span>  '.plugin_lang_get('timepackage_of_total_time').'
-                        </div>
-                        </td>
+                            <span class="bold">' . ceil(100 - $t_diff_percent) . '%</span>  ' . plugin_lang_get('timepackage_of_total_time') . '
+                        </div>';
+                }
+                echo '</td>
                       </tr>';
             }
         }
@@ -260,5 +264,17 @@ class HhTimePackagePlugin extends MantisPlugin
         }
 
         return false;
+    }
+
+    /**
+     * Get current user role in the current project
+     * @return int|string
+     */
+    private function _getCurrentUserRole()
+    {
+        $t_user_id = auth_get_current_user_id();
+        $t_current_project = helper_get_current_project();
+        $t_project_id = gpc_get_int('project_id', $t_current_project);
+        return user_get_access_level($t_user_id,$t_project_id);
     }
 }
