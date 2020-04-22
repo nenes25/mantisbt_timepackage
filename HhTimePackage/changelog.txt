@@ -15,6 +15,7 @@
 2020-04-21 : V 0.2.1
      #8 Hide percent of invoice times to reporters
      #9 Hide "do_not_track_time" on bugnote form
+     #10 Add pagination at the bottom of timepackage page
 2020-04-08 : V 0.2.0
     #1 Add pagination on page HhTimePackage/timepackage
     #3 Add resume page in admin

@@ -231,6 +231,21 @@ if ($time < 0) {
                     </tbody>
                 </table>
 
+                <div class="widget-box widget-color-blue2" style="margin-top: 30px">
+                    <div class="widget-header">
+                        <div class="padding-8 clearfix">
+                            <div class="pull-left">
+                                <h4><?php echo plugin_lang_get('timepackage_page_detail_title'); ?></h4>
+                            </div>
+                            <div class="btn-group pull-right"><?php
+                                $t_tmp_filter_key = (null !== $filter) ? $filter : '';
+                                print_page_links('plugin.php?page=HhTimePackage/timepackage', 1, $t_page_count, (int)$f_page_number, $t_tmp_filter_key);
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             <?php else : ?>
             <p><?php plugin_lang_get('timepackage_page_no_details'); ?>
                 <?php endif; ?>
