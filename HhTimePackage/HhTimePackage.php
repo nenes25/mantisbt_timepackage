@@ -243,6 +243,7 @@ class HhTimePackagePlugin extends MantisPlugin
             [
                 'plugin' => $pluginName,
                 'code' => $pluginName . '_cron_reminder',#unique code
+                'description' => plugin_lang_get('cron_reminder_description'),
                 'frequency' => '0 12 * * * *',#cron expression
                 'url' => 'cron',#plugin page name
             ],

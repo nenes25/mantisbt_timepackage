@@ -20,39 +20,48 @@ print_manage_menu();
 
 plugin_require_api('core/TimePackage.php');
 $timepackages = TimePackage::get_timepackages();
+$timepackages_sum = TimePackage::get_timepackages_sum();
 ?>
-<div class="col-md-12 col-xs-12">
-    <div class="space-10"></div>
-    <div class="widget-box widget-color-blue2">
-        <div class="widget-header widget-header-small">
-            <h4 class="widget-title lighter">
-                <i class="ace-icon fa fa-file-o"></i>
-                <?php echo plugin_lang_get( 'list_title' ); ?>
-            </h4>
-        </div>
-        <div class="widget-body">
-            <div class="widget-main no-padding">
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-condensed">
-                        <thead>
-                        <tr class="row-category">
-                            <th><?php echo plugin_lang_get("project") ?></th>
-                            <th><?php echo plugin_lang_get("remaining_time") ?></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach($timepackages as $timepackage): ?>
-                            <tr>
-                                <td><?php echo $timepackage['name'];?></td>
-                                <td><?php echo  db_minutes_to_hhmm($timepackage['time']);?></td>
+    <div class="col-md-12 col-xs-12">
+        <div class="space-10"></div>
+        <div class="widget-box widget-color-blue2">
+            <div class="widget-header widget-header-small">
+                <h4 class="widget-title lighter">
+                    <i class="ace-icon fa fa-file-o"></i>
+                    <?php echo plugin_lang_get('list_title'); ?>
+                </h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main no-padding">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-condensed">
+                            <thead>
+                            <tr class="row-category">
+                                <th><?php echo plugin_lang_get("project") ?></th>
+                                <th><?php echo plugin_lang_get("remaining_time") ?></th>
                             </tr>
-                        <?php endforeach;?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            <?php if (count($timepackages)): ?>
+                                <?php foreach ($timepackages as $timepackage): ?>
+                                    <tr>
+                                        <td><?php echo $timepackage['name']; ?></td>
+                                        <td><?php echo db_minutes_to_hhmm($timepackage['time']); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                            </tbody>
+                            <tfoot>
+                            <tr class="row-category-2">
+                                <td class="bold"><?php echo plugin_lang_get('sum_all'); ?></td>
+                                <td class="bold"><?php echo db_minutes_to_hhmm($timepackages_sum); ?></td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 <?php
 layout_page_end();

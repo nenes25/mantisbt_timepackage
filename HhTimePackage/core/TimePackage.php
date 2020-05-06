@@ -201,7 +201,7 @@ class TimePackage
 
 
     /**
-     * Get All Timepackages
+     * Get All Timepackages remaining times
      * @return  array
      */
     public static function get_timepackages()
@@ -217,6 +217,19 @@ class TimePackage
         }
 
         return $results;
+    }
+
+    /**
+     * Get sum of time of all timepackages remaining times combined
+     * @return float
+     */
+    public static function get_timepackages_sum()
+    {
+        $t_db_query = "SELECT SUM(`time`) as total
+        FROM " . plugin_table('timepackage');
+
+        $t_query = db_query($t_db_query);
+        return (int)db_result($t_query);
     }
 
     /**

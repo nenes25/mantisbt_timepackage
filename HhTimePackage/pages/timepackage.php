@@ -67,6 +67,10 @@ $t_details = $timePackage->get_details($f_page_number, $t_result_per_page, $filt
 #Details add List
 $t_details_add = $timePackage->get_add_details();
 
+#Details sums @todo
+$t_details_filter_sum = 0;
+$t_details_global_sum = 10;
+
 $time = db_minutes_to_hhmm($timePackage->get_time());
 if ($time < 0) {
     $out_of_time = true;
@@ -195,7 +199,7 @@ if ($time < 0) {
             </div>
             <?php
             if (sizeof($t_details)):?>
-                <table id="details_list" class="table">
+                <table id="details_list" class="table table-striped">
                     <thead>
                     <tr>
                         <th><?php echo plugin_lang_get('timepackage_page_date'); ?></th>
@@ -230,6 +234,18 @@ if ($time < 0) {
                     <?php endforeach; ?>
                     </tbody>
                 </table>
+
+                <div class="widget-toolbox padding-8 clearfix">
+                    <div class="pull-left">
+                        <i class="fa fa-clock-o"></i>&nbsp;<?php echo plugin_lang_get('filter_time');?>
+                        <span class="bold"><?php echo $t_details_filter_sum;?></span>
+                    </div>
+
+                    <div class="pull-right">
+                        <i class="fa fa-clock-o"></i>&nbsp;<?php echo plugin_lang_get('global_time');?>
+                        <span class="bold"><?php echo $t_details_global_sum;?></span>
+                    </div>
+                </div>
 
                 <div class="widget-box widget-color-blue2" style="margin-top: 30px">
                     <div class="widget-header">

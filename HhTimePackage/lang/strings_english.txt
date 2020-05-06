@@ -8,6 +8,7 @@ $s_plugin_HhTimePackage_do_not_track_time = 'Don`t track time in timepackage';
 $s_plugin_HhTimePackage_timepackage_bug_stats = 'Timepackage statistics';
 $s_plugin_HhTimePackage_timepackage_reported_time = 'Reported time';
 $s_plugin_HhTimePackage_timepackage_of_total_time = 'of total time';
+$s_plugin_HhTimePackage_cron_reminder_description = 'Reminder for negative timepackages';
 #timepackage page
 $s_plugin_HhTimePackage_timepackage_page_title = 'Mon available time';
 $s_plugin_HhTimePackage_timepackage_page_count = 'Your time actualy remaining';
@@ -25,6 +26,8 @@ $s_plugin_HhTimePackage_timepackage_page_detail_filters = 'Filters';
 $s_plugin_HhTimePackage_timepackage_apply_filters = 'Filter';
 $s_plugin_HhTimePackage_timepackage_reset_filters = 'Reset filters';
 $s_plugin_HhTimePackage_timepackage_export = 'Export';
+$s_plugin_HhTimePackage_filter_time = 'Filter time';
+$s_plugin_HhTimePackage_global_time = 'Global time';
 # add timepackage page
 $s_plugin_HhTimePackage_add_timepackage = 'Ajouter un forfait';
 $s_plugin_HhTimePackage_timepackage_time = 'Temps';
@@ -46,3 +49,4 @@ $s_plugin_HhTimePackage_email_message = 'Hello,<br />You\'re out of time of deve
 $s_plugin_HhTimePackage_list_title = "Timepackages";
 $s_plugin_HhTimePackage_project = "Project";
 $s_plugin_HhTimePackage_remaining_time = "Remaining Time";
+$s_plugin_HhTimePackage_sum_all = "Sum of all";

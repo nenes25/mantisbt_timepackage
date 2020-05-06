@@ -8,6 +8,7 @@ $s_plugin_HhTimePackage_do_not_track_time = 'Ne pas déduire du forfait de temps
 $s_plugin_HhTimePackage_timepackage_bug_stats = 'Statistiques forfait';
 $s_plugin_HhTimePackage_timepackage_reported_time = 'Temps déduit dans le forfait';
 $s_plugin_HhTimePackage_timepackage_of_total_time = 'du temps total';
+$s_plugin_HhTimePackage_cron_reminder_description = 'Envoi de rappel pour les forfaits négatifs';
 #timepackage page
 $s_plugin_HhTimePackage_timepackage_page_title = 'Mon Temps disponible';
 $s_plugin_HhTimePackage_timepackage_page_count = 'Votre temps de développement disponible actuellement';
@@ -25,6 +26,8 @@ $s_plugin_HhTimePackage_timepackage_page_detail_filters = 'Filtres';
 $s_plugin_HhTimePackage_timepackage_apply_filters = 'Appliquer les filtres';
 $s_plugin_HhTimePackage_timepackage_reset_filters = 'Réinitialiser les filtres';
 $s_plugin_HhTimePackage_timepackage_export = 'Exporter';
+$s_plugin_HhTimePackage_filter_time = 'Temps du filtre';
+$s_plugin_HhTimePackage_global_time = 'Temps total';
 # add timepackage page
 $s_plugin_HhTimePackage_add_timepackage = 'Ajouter un forfait';
 $s_plugin_HhTimePackage_timepackage_time = 'Temps';
@@ -46,3 +49,4 @@ $s_plugin_HhTimePackage_email_message = 'Bonjour,<br />Vous ne disposez plus de 
 $s_plugin_HhTimePackage_list_title = "Forfaits";
 $s_plugin_HhTimePackage_project = "Projet";
 $s_plugin_HhTimePackage_remaining_time = "Temps restant";
+$s_plugin_HhTimePackage_sum_all = "Temps total";

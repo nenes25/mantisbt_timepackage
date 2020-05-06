@@ -13,6 +13,7 @@
 # along with MantisBT.  If not, see <http://www.gnu.org/licenses/>.
 
 2020-04-21 : V 0.2.1
+     Small improvements
      #8 Hide percent of invoice times to reporters
      #9 Hide "do_not_track_time" on bugnote form
      #10 Add pagination at the bottom of timepackage page
