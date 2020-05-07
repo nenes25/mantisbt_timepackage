@@ -27,7 +27,7 @@ $s_plugin_HhTimePackage_timepackage_apply_filters = 'Appliquer les filtres';
 $s_plugin_HhTimePackage_timepackage_reset_filters = 'Réinitialiser les filtres';
 $s_plugin_HhTimePackage_timepackage_export = 'Exporter';
 $s_plugin_HhTimePackage_filter_time = 'Temps du filtre';
-$s_plugin_HhTimePackage_global_time = 'Temps total';
+$s_plugin_HhTimePackage_global_time = 'Temps total déduit sur le projet';
 # add timepackage page
 $s_plugin_HhTimePackage_add_timepackage = 'Ajouter un forfait';
 $s_plugin_HhTimePackage_timepackage_time = 'Temps';

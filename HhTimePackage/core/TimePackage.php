@@ -63,6 +63,27 @@ class TimePackage
     }
 
     /**
+     * Get Used time on the timepackage
+     */
+    public function get_used_time($filters=array())
+    {
+        $filtersConditions = '';
+        if (count($filters)){
+            if ( isset($filters['date'])){
+                $filtersConditions = "AND n.date_submitted >= ".strtotime($filters['date']['from'])." AND n.date_submitted <=".strtotime($filters['date']['to'])."";
+            }
+        }
+        $t_db_query = "SELECT SUM(d.time)
+                       FROM " . plugin_table('timepackage_details') . " d
+                       INNER JOIN " . db_get_table('bugnote') . " n ON d.bugnote_id = n.id
+                       WHERE d.project_id=" . db_param().'
+                       '.$filtersConditions;
+
+        $t_query = db_query($t_db_query, array($this->_project_id));
+        return (int) db_result($t_query);
+    }
+
+    /**
      * Get Timepackage details
      * @param null $page_number
      * @param int $nb_per_page

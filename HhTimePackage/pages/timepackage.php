@@ -68,8 +68,8 @@ $t_details = $timePackage->get_details($f_page_number, $t_result_per_page, $filt
 $t_details_add = $timePackage->get_add_details();
 
 #Details sums @todo
-$t_details_filter_sum = 0;
-$t_details_global_sum = 10;
+$t_details_filter_sum = $timePackage->get_used_time($filters);
+$t_details_global_sum = $timePackage->get_used_time();
 
 $time = db_minutes_to_hhmm($timePackage->get_time());
 if ($time < 0) {
@@ -238,21 +238,18 @@ if ($time < 0) {
                 <div class="widget-toolbox padding-8 clearfix">
                     <div class="pull-left">
                         <i class="fa fa-clock-o"></i>&nbsp;<?php echo plugin_lang_get('filter_time');?>
-                        <span class="bold"><?php echo $t_details_filter_sum;?></span>
+                        <span class="bold"><?php echo db_minutes_to_hhmm(abs($t_details_filter_sum));?></span>
                     </div>
 
                     <div class="pull-right">
                         <i class="fa fa-clock-o"></i>&nbsp;<?php echo plugin_lang_get('global_time');?>
-                        <span class="bold"><?php echo $t_details_global_sum;?></span>
+                        <span class="bold"><?php echo db_minutes_to_hhmm(abs($t_details_global_sum));?></span>
                     </div>
                 </div>
 
-                <div class="widget-box widget-color-blue2" style="margin-top: 30px">
-                    <div class="widget-header">
+                <?php if ( $t_page_count > 1) :?>
+                    <div class="widget-toolbox">
                         <div class="padding-8 clearfix">
-                            <div class="pull-left">
-                                <h4><?php echo plugin_lang_get('timepackage_page_detail_title'); ?></h4>
-                            </div>
                             <div class="btn-group pull-right"><?php
                                 $t_tmp_filter_key = (null !== $filter) ? $filter : '';
                                 print_page_links('plugin.php?page=HhTimePackage/timepackage', 1, $t_page_count, (int)$f_page_number, $t_tmp_filter_key);
@@ -260,7 +257,7 @@ if ($time < 0) {
                             </div>
                         </div>
                     </div>
-                </div>
+                <?php endif; ?>
 
             <?php else : ?>
             <p><?php plugin_lang_get('timepackage_page_no_details'); ?>
