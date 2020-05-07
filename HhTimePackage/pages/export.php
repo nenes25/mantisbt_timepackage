@@ -35,6 +35,7 @@ $t_separator = csv_get_separator();
 
 csv_start($t_export_file_name);
 
+#Csv Header
 echo csv_escape_string(lang_get('issue_id')) . $t_separator;
 echo csv_escape_string(lang_get('summary')) . $t_separator;
 echo csv_escape_string(lang_get('username')) . $t_separator;
@@ -42,6 +43,7 @@ echo csv_escape_string(lang_get('minutes')) . $t_separator;
 echo csv_escape_string(lang_get('comment')) . $t_separator;
 echo $t_new_line;
 
+$t_global_time = 0;
 foreach ($t_data as $t_row) {
     echo csv_escape_string($t_row['bug_id']) . $t_separator;
     echo csv_escape_string($t_row['summary']) . $t_separator;
@@ -49,4 +51,21 @@ foreach ($t_data as $t_row) {
     echo csv_escape_string(abs($t_row['time'])) . $t_separator;
     echo csv_escape_string($t_row['note']) . $t_separator;
     echo $t_new_line;
+    $t_global_time += abs($t_row['time']);
 }
+
+#Empty Line Between rows details and global time
+echo csv_escape_string("") . $t_separator;
+echo csv_escape_string("") . $t_separator;
+echo csv_escape_string("") . $t_separator;
+echo csv_escape_string("") . $t_separator;
+echo csv_escape_string("") . $t_separator;
+echo $t_new_line;
+
+#Global Time
+echo csv_escape_string(lang_get('total')) . $t_separator;
+echo csv_escape_string($t_global_time .' m') . $t_separator;
+echo csv_escape_string(round($t_global_time / 60,2).' h') . $t_separator;
+echo csv_escape_string("") . $t_separator;
+echo csv_escape_string("") . $t_separator;
+echo $t_new_line;

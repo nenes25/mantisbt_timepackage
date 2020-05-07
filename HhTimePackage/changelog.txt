@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with MantisBT.  If not, see <http://www.gnu.org/licenses/>.
 
+2020-      : V 0.2.2
+     #7 Export : add sum of total time
 2020-04-21 : V 0.2.1
      Small improvements
      #8 Hide percent of invoice times to reporters
