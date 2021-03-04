@@ -50,3 +50,5 @@ $s_plugin_HhTimePackage_list_title = "Forfaits";
 $s_plugin_HhTimePackage_project = "Projet";
 $s_plugin_HhTimePackage_remaining_time = "Temps restant";
 $s_plugin_HhTimePackage_sum_all = "Temps total";
+#Export Page
+$s_plugin_HhTimePackage_private_note = 'Note privée';

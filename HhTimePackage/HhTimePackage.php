@@ -29,7 +29,7 @@ class HhTimePackagePlugin extends MantisPlugin
         $this->name = plugin_lang_get('title');
         $this->description = plugin_lang_get('description');
         $this->page = 'config.php';
-        $this->version = '0.2.2';
+        $this->version = '0.2.3';
         $this->requires = array(
             'MantisCore' => '2.0.0',
         );

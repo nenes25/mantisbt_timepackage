@@ -50,3 +50,5 @@ $s_plugin_HhTimePackage_list_title = "Timepackages";
 $s_plugin_HhTimePackage_project = "Project";
 $s_plugin_HhTimePackage_remaining_time = "Remaining Time";
 $s_plugin_HhTimePackage_sum_all = "Sum of all";
+#Export Page
+$s_plugin_HhTimePackage_private_note = 'Private note';

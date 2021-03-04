@@ -151,7 +151,7 @@ class TimePackage
             }
         }
 
-        $t_db_query = "SELECT d.*, n.date_submitted,n.reporter_id, t.summary,nt.note,u.username
+        $t_db_query = "SELECT d.*, n.date_submitted,n.reporter_id,n.view_state, t.summary,nt.note,u.username
                        FROM " . plugin_table('timepackage_details') . " d
                        INNER JOIN " . db_get_table('bugnote') . " n ON d.bugnote_id = n.id
                        LEFT JOIN " . db_get_table('bugnote_text')." nt ON n.bugnote_text_id = nt.id
@@ -160,6 +160,7 @@ class TimePackage
                        WHERE d.project_id=" . db_param().'
                        '.$filtersConditions.' 
                        ORDER BY n.date_submitted DESC';
+
 
         $t_query = db_query($t_db_query, array($this->_project_id));
         $results = array();

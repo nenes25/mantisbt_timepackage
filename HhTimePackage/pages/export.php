@@ -14,7 +14,11 @@
 # along with MantisBT.  If not, see <http://www.gnu.org/licenses/>.
 require_api('csv_api.php');
 plugin_require_api('core/TimePackage.php');
+
+$t_user_id = auth_get_current_user_id();
+$t_user_role = user_get_access_level($t_user_id, helper_get_current_project());
 $time_package = new TimePackage(helper_get_current_project());
+
 helper_begin_long_process();
 
 $filters = array();
@@ -46,12 +50,20 @@ echo $t_new_line;
 
 $t_global_time = 0;
 foreach ($t_data as $t_row) {
+
+    #For private note we don't display the real text
+    if ( $t_row['view_state'] == VS_PRIVATE && $t_user_role < ADMINISTRATOR) {
+        $t_row_note = plugin_lang_get('private_note');
+    } else {
+        $t_row_note = $t_row['note'];
+    }
+
     echo csv_escape_string($t_row['bug_id']) . $t_separator;
     echo csv_escape_string($t_row['summary']) . $t_separator;
     echo csv_escape_string($t_row['username']) . $t_separator;
     echo csv_escape_string(abs($t_row['time'])) . $t_separator;
     echo csv_escape_string(date('Y-m-d H:i:s',$t_row['date_submitted'])) . $t_separator;
-    echo csv_escape_string($t_row['note']) . $t_separator;
+    echo csv_escape_string($t_row_note) . $t_separator;
     echo $t_new_line;
     $t_global_time += abs($t_row['time']);
 }
