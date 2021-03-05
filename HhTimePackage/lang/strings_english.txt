@@ -26,6 +26,8 @@ $s_plugin_HhTimePackage_timepackage_page_detail_filters = 'Filters';
 $s_plugin_HhTimePackage_timepackage_apply_filters = 'Filter';
 $s_plugin_HhTimePackage_timepackage_reset_filters = 'Reset filters';
 $s_plugin_HhTimePackage_timepackage_export = 'Export';
+$s_plugin_HhTimePackage_timepackage_export_grouped = 'Export grouped by bug id';
+$s_plugin_HhTimePackage_export_warning = 'Apply filter <strong>before</strong> exporting';
 $s_plugin_HhTimePackage_filter_time = 'Filter time';
 $s_plugin_HhTimePackage_global_time = 'Global time';
 # add timepackage page
