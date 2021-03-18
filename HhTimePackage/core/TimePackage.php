@@ -16,11 +16,12 @@
 class TimePackage
 {
 
+    /** @var int  */
     protected $_project_id;
 
     /**
      * TimePackage constructor.
-     * @param $project_id
+     * @param int $project_id
      */
     public function __construct($project_id)
     {
@@ -64,6 +65,7 @@ class TimePackage
 
     /**
      * Get Used time on the timepackage
+     * @return int
      */
     public function get_used_time($filters=array())
     {
@@ -205,10 +207,11 @@ class TimePackage
     /**
      * Add Time to TimePackage
      * @param string $time time in HH:MM format
-     * @param null $comment
+     * @param string|null $comment
      */
     public function add_time($time, $comment = null)
     {
+        $this->_patchGlobalTimeTable();
         #convert time hh:mm in minutes
         try {
             $t_time = helper_duration_to_minutes($time);
@@ -222,6 +225,7 @@ class TimePackage
         db_query($t_db_query,
             array($this->_project_id, 0, 0, $t_time, $comment)
         );
+
         #Update Global counter
         $t_db_global_query = "UPDATE " . plugin_table('timepackage') . "
                        SET `time` = (`time`+ $t_time)
@@ -231,13 +235,14 @@ class TimePackage
 
     /**
      * Remove Time
-     * @param $time
-     * @param $bug_id
-     * @param $bugnote_id
+     * @param int $time
+     * @param int $bug_id
+     * @param int $bugnote_id
      * @param string $message
      */
     public function remove_time($time, $bug_id, $bugnote_id, $message = '')
     {
+        $this->_patchGlobalTimeTable();
         #Add details
         $t_db_query = "INSERT INTO " . plugin_table('timepackage_details') . " 
                        ( project_id,bug_id,bugnote_id,`time`,`comment` )
@@ -250,6 +255,23 @@ class TimePackage
                        SET `time` = (`time`- $time)
                        WHERE project_id = " . db_param();
         db_query($t_db_global_query,array($this->_project_id));
+    }
+
+    /**
+     * In some case global timers are set as null
+     * We init the lines with a value of 0
+     */
+    protected function _patchGlobalTimeTable()
+    {
+        $t_db_query = "SELECT * FROM ".plugin_table('timepackage')
+            ." WHERE `time` IS NULL";
+        $t_query = db_query($t_db_query);
+        while ($row = db_fetch_array($t_query)) {
+            $t_db_global_query = "UPDATE " . plugin_table('timepackage') . "
+                       SET `time` = 0
+                       WHERE project_id = " . db_param();
+            db_query($t_db_global_query,array($row['project_id']));
+        }
     }
 
 

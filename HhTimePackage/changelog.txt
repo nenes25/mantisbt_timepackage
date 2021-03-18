@@ -11,7 +11,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with MantisBT.  If not, see <http://www.gnu.org/licenses/>.
-2021-03- : V 0.2.3 (WIP)
+2021-03-18 : V 0.2.3
+     #2 TimePackage enable on project without being activated
      #16 Add an export grouped by bug id
      #15 Remove note text from private comments for non admin users
 2020-05-07 : V 0.2.2

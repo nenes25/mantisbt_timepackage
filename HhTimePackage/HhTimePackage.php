@@ -153,10 +153,11 @@ class HhTimePackagePlugin extends MantisPlugin
 
     /**
      * Executed after bugnote added
-     * @param $eventName
-     * @param $bug_id
-     * @param $bugnote_id
+     * @param string $eventName
+     * @param int $bug_id
+     * @param int $bugnote_id
      * @throws \Mantis\Exceptions\ClientException
+     * @return void
      */
     public function bugnote_add($eventName, $bug_id, $bugnote_id)
     {
@@ -177,6 +178,7 @@ class HhTimePackagePlugin extends MantisPlugin
      * Add field in bugnote form to not track time
      * @param string $eventName
      * @param int $bug_id
+     * @return string|void
      */
     public function bugnote_add_form($eventName, $bug_id)
     {
@@ -197,8 +199,9 @@ class HhTimePackagePlugin extends MantisPlugin
 
     /**
      * Display statitics invoiced / real time under bugnotes
-     * @param $eventName
-     * @param $bug_id
+     * @param string $eventName
+     * @param int $bug_id
+     * @return string|void
      */
     public function bug_after_notes($eventName,$bug_id)
     {
@@ -252,6 +255,7 @@ class HhTimePackagePlugin extends MantisPlugin
 
     /**
      * Check if module can be active
+     * @return bool
      */
     private function _isActive()
     {
@@ -259,7 +263,6 @@ class HhTimePackagePlugin extends MantisPlugin
         $t_project_id = gpc_get_int('project_id', $t_current_project);
         $t_timetracking_enabled = config_get('time_tracking_enabled', null, null, $t_project_id);
         $t_timepackage_enabled = plugin_config_get(self::CONFIGURATION_KEY_ENABLED, OFF, false, null, $t_project_id);
-
         if ($t_timetracking_enabled == ON && $t_timepackage_enabled == ON) {
             return true;
         }
